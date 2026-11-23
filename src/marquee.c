@@ -19,3 +19,15 @@ int marquee_read(const Marquee *s,const char *text,uint32_t key,uint32_t now){
  if(s->text_width<=s->width)return 1;
  return (uint64_t)(uint32_t)(now-s->began)>=START_PAUSE+travel(s)+END_PAUSE;
 }
+
+int marquee_once(Marquee *s,const char *text,uint32_t key,int text_width,int width,uint32_t now){
+ marquee_offset(s,text,key,text_width,width,now);if(text_width<=width)return 0;
+ uint64_t t=(uint32_t)(now-s->began),moving=travel(s);
+ if(t<START_PAUSE)return 0;if(t>=START_PAUSE+moving)return text_width-width;
+ return (int)((t-START_PAUSE)*32u/1000000u);
+}
+int marquee_loop(Marquee *s,const char *text,uint32_t key,int text_width,int width,int gap,uint32_t now){
+ marquee_offset(s,text,key,text_width,width,now);if(text_width<=width)return 0;
+ uint64_t moving=(uint64_t)(text_width+gap)*1000000u/32u,t=(uint32_t)(now-s->began);t%=START_PAUSE+moving;
+ return t<START_PAUSE?0:(int)((t-START_PAUSE)*32u/1000000u);
+}

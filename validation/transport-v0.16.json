@@ -1,0 +1,12 @@
+{
+  "version": "0.16",
+  "eboot_sha256": "984215d10a4ee8f54e0a3e38d376f304d88a1765e4a3511588a89e59bbc5bcf4",
+  "portrait_analogue_volume": true,
+  "portrait_analogue_forward_backward_seek": true,
+  "paused_seek_preserves_pause": true,
+  "duration_90_second_fixture": true,
+  "top_title_stops_after_once": true,
+  "currently_playing_long_filename_loops": true,
+  "progress_bar_screenshot": "paused-seek.png",
+  "hardware_test": false
+}

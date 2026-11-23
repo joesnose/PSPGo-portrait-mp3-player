@@ -1,0 +1,1 @@
+PASS: pause, bounded movement, end dwell/read completion, selection and text reset, short labels, hidden-view reset timer wrap, one-pass stopping and continuous loop wrap

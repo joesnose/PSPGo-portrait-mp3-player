@@ -1,0 +1,2 @@
+12662e342b0e467fbeae287a7a8bcb71278e938b5684723de08d5b799e7b719b  portrait-player-v0.16-source.zip
+1a9a55768c8bca25771ac8a06b916751ab2c1271f8d59a7890a6e0abfe806329  portrait-player-v0.16.zip

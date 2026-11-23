@@ -8,9 +8,9 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.15.2](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.2/portrait-player-v0.15.2.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15.2) · [Checksums](downloads/v0.15.2/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.2/portrait-player-v0.15.2-source.zip)
+**[Download v0.16](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.16/portrait-player-v0.16.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.16) · [Checksums](downloads/v0.16/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.16/portrait-player-v0.16-source.zip)
 
-Version **0.15.2** scrolls long selected folder names and paths in Library, the highlighted song in the player, and overflowing title, album and artist text. Text pauses before moving and at the end, then scrolls back. Short names stay still; unselected rows retain their shortened labels.
+Version **0.16** adds portrait-oriented analogue volume and seeking, a playback progress bar, one-pass top title/album scrolling, and continuous selected-song scrolling with a `.....` separator and a pause at the start. Short labels stay still. Library scrolling is unchanged.
 
 Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
@@ -21,7 +21,7 @@ PSP/GAME/JoeMusic/music_buttons.prx
 
 The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper provides read-only HOME, volume and slider state; it has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15.1 can replace just the EBOOT; the helper is unchanged.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15.2 can replace just the EBOOT; the helper is unchanged.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -47,6 +47,8 @@ Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms
 | **Square — in the folder browser** | Finish browsing and return to Settings. |
 | **START** | Open Library from the player; otherwise return to the playing song. |
 | **SELECT** | Open Settings: music folders and themes. |
+| **Analogue — portrait up / down** | Raise / lower player volume. Physical left / right on the unrotated PSP; hold to repeat. |
+| **Analogue — portrait right / left** | Seek forwards / backwards five seconds in the active song, on the player screen. Physical up / down on the unrotated PSP; hold to repeat. Works while paused. |
 | **Volume + / −** | Normal system volume adjustment, with an on-screen bar. No song-skipping action. |
 | **Open the sliding screen** | Bring Library in from the right of the portrait screen. |
 | **Close the sliding screen** | Slide Library out to the right and return to the currently playing track. |
@@ -77,7 +79,7 @@ The selected song/folder saves when browsing settles, periodically during playba
 
 Playback time and active-track metadata are recorded separately, but **resuming audio at that timestamp is not enabled**. Audio does not start automatically. Volume reversal is not enabled. Suspend/resume and internal-launch card access are not guaranteed.
 
-Playback is MP3-only; there is no seek, EQ or streaming. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
+Playback is MP3-only; there is no EQ or streaming. The bottom progress bar follows the playing track, between its elapsed timer and play/pause icon. Duration uses the decoder frame count when available, otherwise a bitrate estimate; some VBR files can have an approximate total. Analogue volume controls player output (0–30), in addition to the PSP system volume; physical volume buttons retain their usual behaviour. Player volume starts at full output on launch. Seeking uses the firmware frame-seek API with decode-discard fallback, which can take longer when rewinding far into a track. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
 
 ## Build from source
 
@@ -107,7 +109,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Previous validation results](validation/result.json) and the [v0.15.2 scrolling checks](validation/marquee-v0.15.2.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Previous validation results](validation/result.json) and the [v0.16 player checks](validation/transport-v0.16.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 

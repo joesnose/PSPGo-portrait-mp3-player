@@ -52,12 +52,19 @@ void fitted(int x,int y,const char *s,int width,uint32_t color,int size){
  memcpy(b+n,"...",4);label(x,y,b,color,size);
 }
 static Marquee marquees[6];
-void scrolling_label(unsigned slot,int x,int y,const char *s,int width,uint32_t color,int size,uint32_t key){
- if(slot>=6||width<=0)return;int left=x,right=x+width;int offset=marquee_offset(&marquees[slot],s,key,label_width(s,size),width,sceKernelGetSystemTimeLow());x-=offset;
+static void clipped_label(int x,int y,const char *s,int left,int right,uint32_t color,int size){
  const UiFont *f=font_for(size);while(*s&&x<right){unsigned c=next_char(&s);const UiGlyph *g=&f->glyphs[c];if(x+g->width<=left){x+=g->advance;continue;}
   for(int row=0;row<f->height;row++)for(int col=0;col<g->width;col++){unsigned a=f->pixels[g->offset+row*g->width+col];int px=x+col,py=y+row;if(a&&px>=left&&px<right&&(unsigned)px<272&&(unsigned)py<480){uint32_t bg=fb[(271-px)*512+py];pixel(px,py,a==255?color:blend(color,bg,a));}}
   x+=g->advance;
  }
+}
+void scrolling_label(unsigned slot,int x,int y,const char *s,int width,uint32_t color,int size,uint32_t key){
+ if(slot>=6||width<=0)return;int tw=label_width(s,size),gap=label_width(" .....  ",size),offset;uint32_t now=sceKernelGetSystemTimeLow();
+ if(slot<2)offset=marquee_once(&marquees[slot],s,key,tw,width,now);
+ else if(slot==3)offset=marquee_loop(&marquees[slot],s,key,tw,width,gap,now);
+ else offset=marquee_offset(&marquees[slot],s,key,tw,width,now);
+ clipped_label(x-offset,y,s,x,x+width,color,size);
+ if(slot==3&&tw>width){clipped_label(x-offset+tw,y," .....  ",x,x+width,color,size);clipped_label(x-offset+tw+gap,y,s,x,x+width,color,size);}
 }
 int scrolling_label_read(unsigned slot,const char *s,uint32_t key,uint32_t now){return slot<6&&marquee_read(&marquees[slot],s,key,now);}
 void title_lines(int x,int y,const char *s,int width,uint32_t color){

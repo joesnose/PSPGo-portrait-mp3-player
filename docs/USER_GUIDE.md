@@ -1,10 +1,10 @@
-# Portrait Player — PSP Go v0.15.2
+# Portrait Player — PSP Go v0.16
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.15.2 adds horizontal scrolling for long selected Library names and paths, highlighted player songs, and overflowing title, album and artist labels. Text pauses before moving and at the end, then returns. Short labels remain stationary, and unselected rows stay shortened. Audio and controls are unchanged.
+Version 0.16 adds portrait-oriented analogue volume and five-second seeking, a playback progress bar, one-pass title/album scrolling and continuously looping selected-song text with a `.....` separator. Library and artist scrolling keep the previous behaviour. Short labels stay still.
 
 Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It is now a read-only HOME/volume getter: no firmware patches, input hooks, volume setters or background threads.
 
@@ -107,7 +107,7 @@ Common ID3v2.3/v2.4 title, artist and album tags are read. Embedded JPEG/PNG is 
 - PPSSPP checks cover MP3 playback, pause/resume, track switching, automatic next-track, recursive scanning, multiple folder selection through the UI, and embedded PNG/folder JPEG artwork.
 - The standard mixer channel is drained before release/re-reservation; alternating output buffers preserve queued sample data.
 - The new HOME tap/hold handling and measured volume indicator require real PSP Go testing; PPSSPP cannot certify these firmware features. Suspend/resume is not promised by this prototype.
-- Playback resets the standby timer while active. No seek, shuffle, EQ or streaming in this first version.
+- Playback resets the standby timer while active. Seeking and shuffle are available; EQ and streaming are not supported.
 
 For a problem report, attach `JOE_MUSIC_LOG.txt` from the app folder. It is replaced each launch.
 
@@ -151,3 +151,15 @@ The player is BSD-2-Clause licensed. The firmware MP3 pipeline is based on Alexa
 ## Version 0.15.2 verification
 
 Sanitized host checks cover marquee timing, bounds, state resets, hidden views and clock wrap. Focused PPSSPP checks cover selected Library and player text, clipping beside thumbnails and neighbouring rows, long-name reading time, ordinary short-name idle return and browsing without changing playback. See `validation/marquee-v0.15.2.json`. These checks do not replace a physical PSP test.
+
+## Analogue controls and progress
+
+Hold the PSP 90° clockwise. Moving the stick towards the top/bottom of the portrait screen raises/lowers player volume. These are physical left/right on the unrotated PSP. Volume repeats while held and has a central dead zone. Player volume is a separate 0–30 output level, initially full, within the system volume set by the physical keys.
+
+Portrait right/left (physical up/down) seeks forwards/backwards five seconds on the player screen, repeating while held. It seeks the playing song even if another song is highlighted. Paused playback remains paused. Firmware frame seeking is used where supported; a decode-discard fallback can make a distant rewind slower. Seeking is bounded at the start and estimated end.
+
+A progress bar sits between the elapsed timer and play/pause icon. Duration comes from decoder frame counts when available, otherwise a bitrate estimate, so some VBR totals can be approximate. The top title and album scroll to their ends once and stop; overflowing selected song names loop with five dots between repetitions, pausing at the start. A pending song still gets its first readable pass before the idle return.
+
+## Version 0.16 verification
+
+Sanitized marquee checks cover one-pass stopping and loop wraparound as well as the existing timing/reset cases. Focused PPSSPP checks exercise portrait analogue volume, forward/backward and paused seeking, duration on a generated 90-second file, title stopping and the progress-bar layout. See `validation/transport-v0.16.json`. Physical PSP testing remains necessary.

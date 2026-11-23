@@ -9,20 +9,22 @@
 #include <string.h>
 #include "player.h"
 #include "pcm.h"
+static volatile int gain=30;
+static unsigned duration;
 static unsigned char input[32768] __attribute__((aligned(64)));
 static unsigned char pcm[18432] __attribute__((aligned(64)));
 #define MIX_FRAMES 1024
 static short mix[2][MIX_FRAMES*2] __attribute__((aligned(64)));
 typedef struct {int channel,which,filled;} MixOutput;
-static int output_sample(void *user,int16_t left,int16_t right){MixOutput *o=user;mix[o->which][o->filled*2]=left;mix[o->which][o->filled*2+1]=right;if(++o->filled==MIX_FRAMES){int rc=sceAudioOutputBlocking(o->channel,PSP_AUDIO_VOLUME_MAX,mix[o->which]);if(rc<0)return rc;o->filled=0;o->which^=1;}return 0;}
-static int finish_output(MixOutput *o){if(!o->filled)return 0;memset(mix[o->which]+o->filled*2,0,(MIX_FRAMES-o->filled)*2*sizeof(short));int rc=sceAudioOutputBlocking(o->channel,PSP_AUDIO_VOLUME_MAX,mix[o->which]);if(rc<0)return rc;o->filled=0;o->which^=1;return 0;}
+static int output_sample(void *user,int16_t left,int16_t right){MixOutput *o=user;mix[o->which][o->filled*2]=left;mix[o->which][o->filled*2+1]=right;if(++o->filled==MIX_FRAMES){int rc=sceAudioOutputBlocking(o->channel,PSP_AUDIO_VOLUME_MAX*gain/30,mix[o->which]);if(rc<0)return rc;o->filled=0;o->which^=1;}return 0;}
+static int finish_output(MixOutput *o){if(!o->filled)return 0;memset(mix[o->which]+o->filled*2,0,(MIX_FRAMES-o->filled)*2*sizeof(short));int rc=sceAudioOutputBlocking(o->channel,PSP_AUDIO_VOLUME_MAX*gain/30,mix[o->which]);if(rc<0)return rc;o->filled=0;o->which^=1;return 0;}
 static SceUID mutex=-1,thread=-1;
 static Playback published;
 static char wanted[PATH_CAP];
-static int request,paused,quitting,revision;
+static int request,paused,quitting,revision,seek_pending;static unsigned seek_target;
 static void lock(void){sceKernelWaitSema(mutex,1,0);}static void unlock(void){sceKernelSignalSema(mutex,1);}
-static void publish(int state,int error,int generation,unsigned frames,int rate,int bitrate,const char *path){
- lock();published.state=state;published.error=error;published.generation=generation;published.seconds=rate>0?frames/(unsigned)rate:0;published.rate=rate;published.bitrate=bitrate;snprintf(published.path,sizeof(published.path),"%s",path);unlock();
+static void publish(int state,int error,int generation,uint64_t frames,int rate,int bitrate,const char *path){
+ lock();published.duration=duration;published.volume=gain;published.state=state;published.error=error;published.generation=generation;published.seconds=rate>0?frames/(unsigned)rate:0;published.rate=rate;published.bitrate=bitrate;snprintf(published.path,sizeof(published.path),"%s",path);unlock();
 }
 static int fill(int fd,int handle){
  unsigned char *dst;SceInt32 n,pos;int rc=sceMp3GetInfoToAddStreamData(handle,&dst,&n,&pos);if(rc<0)return rc;if(n<=0)return 0;
@@ -36,14 +38,14 @@ static int release_channel(int *channel){
  return (int)0x80260002;
 }
 static int worker(SceSize size,void *arg){
- (void)size;(void)arg;int fd=-1,handle=-1,channel=-1,rate=0,channels=0,bitrate=0,gen=0,state=PLAYER_STOPPED;unsigned played=0;PcmConvert convert;MixOutput output={-1,0,0};char path[PATH_CAP]="";
+ (void)size;(void)arg;int fd=-1,handle=-1,channel=-1,rate=0,channels=0,bitrate=0,gen=0,state=PLAYER_STOPPED;uint64_t played=0,target=0;int seeking=0;PcmConvert convert;MixOutput output={-1,0,0};char path[PATH_CAP]="";
  for(;;){
-  lock();int quit=quitting,cmd=request,pause=paused;request=0;char next[PATH_CAP];if(cmd==1)strcpy(next,wanted);int newgen=revision;unlock();
+  lock();int quit=quitting,cmd=request,pause=paused;request=0;char next[PATH_CAP];if(cmd==1)strcpy(next,wanted);int newgen=revision,do_seek=seek_pending;unsigned destination=seek_target;seek_pending=0;unlock();
   if(quit||cmd){
    int release_error=release_channel(&channel);
    if(release_error<0&&!quit){state=PLAYER_ERROR;publish(state,release_error,gen,played,rate,bitrate,path);continue;}
    if(handle>=0){sceMp3ReleaseMp3Handle(handle);handle=-1;}if(fd>=0){sceIoClose(fd);fd=-1;}
-   rate=channels=bitrate=0;played=0;gen=newgen;output=(MixOutput){-1,0,0};
+   rate=channels=bitrate=0;played=duration=0;seeking=0;gen=newgen;output=(MixOutput){-1,0,0};
    if(quit)break;
    state=PLAYER_STOPPED;
    if(cmd==1){
@@ -56,23 +58,32 @@ static int worker(SceSize size,void *arg){
      else {SceMp3InitArg init;memset(&init,0,sizeof(init));init.mp3StreamStart=start;init.mp3StreamEnd=end;init.mp3Buf=input;init.mp3BufSize=sizeof(input);init.pcmBuf=pcm;init.pcmBufSize=sizeof(pcm);handle=sceMp3ReserveMp3Handle(&init);if(handle<0)err=handle;}
      if(!err){int n=fill(fd,handle);if(n<=0)err=n?n:-3;}
      if(!err)err=sceMp3Init(handle);
-     if(err>=0){err=sceMp3SetLoopNum(handle,0);rate=sceMp3GetSamplingRate(handle);channels=sceMp3GetMp3ChannelNum(handle);bitrate=sceMp3GetBitRate(handle);if(rate<=0||(channels!=1&&channels!=2))err=-4;}
+     if(err>=0){err=sceMp3SetLoopNum(handle,0);rate=sceMp3GetSamplingRate(handle);channels=sceMp3GetMp3ChannelNum(handle);bitrate=sceMp3GetBitRate(handle);if(rate<=0||(channels!=1&&channels!=2))err=-4;else {int count=sceMp3GetFrameNum(handle);int samples=rate>=32000?1152:576;duration=count>0?(unsigned)((uint64_t)count*samples/rate):bitrate>0?(unsigned)((end-start)*8/(bitrate*1000)):0;}}
     }
     if(err<0){state=PLAYER_ERROR;publish(state,err,gen,0,rate,bitrate,path);}
     else {channel=sceAudioChReserve(PSP_AUDIO_NEXT_CHANNEL,MIX_FRAMES,PSP_AUDIO_FORMAT_STEREO);if(channel<0){state=PLAYER_ERROR;publish(state,channel,gen,0,rate,bitrate,path);}else{output.channel=channel;pcm_init(&convert,(unsigned)rate);state=PLAYER_PLAYING;}}
    }else{path[0]=0;publish(state,0,gen,0,0,0,path);}
   }
   if(state==PLAYER_ERROR||state==PLAYER_STOPPED||state==PLAYER_ENDED){sceKernelDelayThread(10000);continue;}
-  if(pause){state=PLAYER_PAUSED;publish(state,0,gen,played,rate,bitrate,path);sceKernelDelayThread(10000);continue;}
+  if(do_seek&&!cmd){
+   target=(uint64_t)destination*(unsigned)rate;seeking=1;output.filled=0;pcm_init(&convert,(unsigned)rate);
+   unsigned samples=rate>=32000?1152:576;unsigned frame=(unsigned)(target/samples);
+   int rc=sceMp3ResetPlayPositionByFrame(handle,frame);
+   if(rc>=0){played=(uint64_t)frame*samples;seeking=0;}
+   else if(target<played){rc=sceMp3ResetPlayPosition(handle);if(rc<0){state=PLAYER_ERROR;publish(state,rc,gen,played,rate,bitrate,path);continue;}played=0;}
+  }
+  if(seeking&&played>=target){seeking=0;pcm_init(&convert,(unsigned)rate);}
+  if(pause&&!seeking){state=PLAYER_PAUSED;publish(state,0,gen,played,rate,bitrate,path);sceKernelDelayThread(10000);continue;}
   state=PLAYER_PLAYING;
   int err=0;if(sceMp3CheckStreamDataNeeded(handle)>0){int rc=fill(fd,handle);if(rc<0)err=rc;}
   short *decoded=0;int bytes=err?err:sceMp3Decode(handle,&decoded);
   if(bytes==0||bytes==(int)0x80671402){int rc=pcm_finish(&convert,output_sample,&output);if(rc>=0)rc=finish_output(&output);state=rc<0?PLAYER_ERROR:PLAYER_ENDED;publish(state,rc<0?rc:0,gen,played,rate,bitrate,path);continue;}
   if(bytes<0||!decoded){state=PLAYER_ERROR;publish(state,bytes<0?bytes:-5,gen,played,rate,bitrate,path);continue;}
   int frames=bytes/(2*channels);if(frames<=0||frames>9216){state=PLAYER_ERROR;publish(state,-6,gen,played,rate,bitrate,path);continue;}
-  int rc=pcm_push(&convert,decoded,(size_t)frames,channels,output_sample,&output);
+  /* Decode-discard preserves VBR timing and the MP3 bit reservoir. No PCM is queued while seeking. */
+  int rc=seeking?0:pcm_push(&convert,decoded,(size_t)frames,channels,output_sample,&output);
   if(rc<0){state=PLAYER_ERROR;publish(state,rc,gen,played,rate,bitrate,path);continue;}
-  played+=(unsigned)frames;publish(state,0,gen,played,rate,bitrate,path);
+  played+=(unsigned)frames;publish(pause?PLAYER_PAUSED:state,0,gen,played,rate,bitrate,path);
  }
  return 0;
 }
@@ -82,9 +93,11 @@ int player_init(void){
  mutex=sceKernelCreateSema("music_state",0,1,1,0);if(mutex<0)return mutex;
  thread=sceKernelCreateThread("music_audio",worker,0x18,64*1024,PSP_THREAD_ATTR_USER,0);if(thread<0)return thread;return sceKernelStartThread(thread,0,0);
 }
-void player_play(const char *path){if(mutex<0)return;lock();snprintf(wanted,sizeof(wanted),"%s",path);paused=0;request=1;revision++;unlock();}
+void player_play(const char *path){if(mutex<0)return;lock();snprintf(wanted,sizeof(wanted),"%s",path);paused=0;seek_pending=0;request=1;revision++;unlock();}
 void player_pause(void){if(mutex<0)return;lock();paused=!paused;unlock();}
-void player_stop(void){if(mutex<0)return;lock();request=2;paused=0;revision++;unlock();}
+void player_stop(void){if(mutex<0)return;lock();request=2;paused=0;seek_pending=0;revision++;unlock();}
+void player_seek(int delta){if(mutex<0)return;lock();if(published.state==PLAYER_PLAYING||published.state==PLAYER_PAUSED){int64_t value=(seek_pending?seek_target:published.seconds)+(int64_t)delta;if(value<0)value=0;if(published.duration&&value>=(int64_t)published.duration)value=published.duration>1?published.duration-1:0;seek_target=(unsigned)value;seek_pending=1;}unlock();}
+void player_volume(int delta){if(mutex<0)return;lock();int v=gain+delta;gain=v<0?0:v>30?30:v;published.volume=gain;unlock();}
 Playback player_snapshot(void){Playback p={0};if(mutex>=0){lock();p=published;unlock();}return p;}
 void player_shutdown(void){
  if(mutex>=0){lock();quitting=1;unlock();}if(thread>=0){sceKernelWaitThreadEnd(thread,0);sceKernelDeleteThread(thread);thread=-1;}
