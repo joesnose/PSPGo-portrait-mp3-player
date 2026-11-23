@@ -1,0 +1,1 @@
+PASS: 11.025/22.05/32/44.1/48 kHz conversion, stereo/mono, exact frame counts, chunk continuity, tone frequency, error propagation; reversible slide timing and wrap

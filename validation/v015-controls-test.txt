@@ -1,0 +1,4 @@
+PASS: four-second idle deadline, reset on scroll, single return and timer wrap
+PASS: shuffle visits every track once; double-tap timing, long-press cancellation and timer wrap
+PASS: unique full-path folders across nested directories and devices
+PASS: short-on-release, single long event, release after missed threshold, timer wrap, cancellation, per-folder track wrap, album ordering and wrap

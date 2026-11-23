@@ -1,0 +1,1 @@
+PASS: slide open/closed, unsupported-model and failed-read fallback, K1 restoration

@@ -1,0 +1,5 @@
+The MP3 playback pipeline is adapted from the PSPSDK MP3 sample.
+Copyright (c) 2008 Alexander Berl <raphael@fx-world.org>
+Licensed under the BSD license; see PSPSDK-LICENSE.
+Source: https://github.com/pspdev/pspsdk/tree/master/src/samples/mp3
+The application and its interface are modified/new code, not the original sample.

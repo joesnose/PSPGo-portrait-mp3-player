@@ -1,0 +1,1 @@
+PASS: default Sage, all five saved themes, FAT rename replacement and invalid-config fallback

@@ -1,0 +1,16 @@
+*.o
+*.elf
+*.prx
+EBOOT.PBP
+PARAM.SFO
+build/
+dist/
+helper/exports.c
+__pycache__/
+
+release-assets/
+folders.cfg
+position.txt*
+theme.cfg*
+JOE_MUSIC_LOG.txt
+SAFE_MODE.txt

@@ -1,0 +1,198 @@
+BUILD=0.15 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=ms0:/PSP/GAME/JoeMusic
+AUDIO init=00000000
+NOTICE Helper absent: Circle plays; normal HOME
+DIR_OPEN error=80010002 path=ef0:/MUSIC
+STANDARD_LOCATION path=ef0:/MUSIC available=0
+DIR_BEGIN path=ms0:/MUSIC
+STANDARD_LOCATION path=ms0:/MUSIC available=1
+DIR_OPEN error=80010002 path=ef0:/PSP/MUSIC
+STANDARD_LOCATION path=ef0:/PSP/MUSIC available=0
+DIR_OPEN error=80010002 path=ms0:/PSP/MUSIC
+STANDARD_LOCATION path=ms0:/PSP/MUSIC available=0
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=Album A mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album B mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=2 folders=2 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album A
+DIR_ENTRY path=ms0:/MUSIC/Album A name=01 First.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=02 Second.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=03 Third.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=sleeve_front.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album A entries=4 folders=0 mp3=3 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+FOLDERS count=2 tracks=5
+NOTICE 5 tracks; 0 skipped entries
+RESTORE_SELECTION index=0 path=ms0:/MUSIC/Album A/01 First.mp3
+AUDIO state=0 seconds=0 rate=0 bitrate=0 error=00000000 generation=0
+DIR_BEGIN path=ms0:/MUSIC/Album A
+DIR_ENTRY path=ms0:/MUSIC/Album A name=01 First.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=02 Second.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=03 Third.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=sleeve_front.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album A entries=4 folders=0 mp3=3 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=1677 path=ms0:/MUSIC/Album A/sleeve_front.JPG
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=Album A mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album B mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album C mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=3 folders=3 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album A
+DIR_ENTRY path=ms0:/MUSIC/Album A name=01 First.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=02 Second.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=03 Third.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=sleeve_front.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album A entries=4 folders=0 mp3=3 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album C
+DIR_ENTRY path=ms0:/MUSIC/Album C name=01 Uncovered.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album C name=AUDIO.OGG mode=000021c9 attr=00000020 kind=other-audio
+DIR_ENTRY path=ms0:/MUSIC/Album C name=not music.jpg mode=000021c9 attr=00000020 kind=file
+DIR_ENTRY path=ms0:/MUSIC/Album C name=NOTES.TXT mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album C entries=4 folders=0 mp3=1 other_audio=1 other=2 read=00000000
+FOLDERS count=3 tracks=6
+NOTICE 6 tracks; 0 skipped entries
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=Album A mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album B mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album C mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=3 folders=3 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album A
+DIR_ENTRY path=ms0:/MUSIC/Album A name=01 First.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=02 Second.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=03 Third.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=sleeve_front.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album A entries=4 folders=0 mp3=3 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album C
+DIR_ENTRY path=ms0:/MUSIC/Album C name=01 Uncovered.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album C name=AUDIO.OGG mode=000021c9 attr=00000020 kind=other-audio
+DIR_ENTRY path=ms0:/MUSIC/Album C name=not music.jpg mode=000021c9 attr=00000020 kind=file
+DIR_ENTRY path=ms0:/MUSIC/Album C name=NOTES.TXT mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album C entries=4 folders=0 mp3=1 other_audio=1 other=2 read=00000000
+FOLDERS count=3 tracks=6
+NOTICE 6 tracks; 0 skipped entries
+DIR_BEGIN path=ms0:/MUSIC/Album A
+DIR_ENTRY path=ms0:/MUSIC/Album A name=01 First.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=02 Second.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=03 Third.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album A name=sleeve_front.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album A entries=4 folders=0 mp3=3 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=1677 path=ms0:/MUSIC/Album A/sleeve_front.JPG
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=3486 path=ms0:/MUSIC/Album B/Special sleeve.JPEG
+DIR_BEGIN path=ms0:/MUSIC/Album C
+DIR_ENTRY path=ms0:/MUSIC/Album C name=01 Uncovered.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album C name=AUDIO.OGG mode=000021c9 attr=00000020 kind=other-audio
+DIR_ENTRY path=ms0:/MUSIC/Album C name=not music.jpg mode=000021c9 attr=00000020 kind=file
+DIR_ENTRY path=ms0:/MUSIC/Album C name=NOTES.TXT mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album C entries=4 folders=0 mp3=1 other_audio=1 other=2 read=00000000
+ART_FILE decoded=0 bytes=20 path=ms0:/MUSIC/Album C/not music.jpg
+ART_MISSING track=ms0:/MUSIC/Album C/01 Uncovered.mp3
+OPEN_FOLDER index=1 track=3 preview=1
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=3486 path=ms0:/MUSIC/Album B/Special sleeve.JPEG
+POSITION_SAVED seconds=0 playing=
+SELECT kind=track index=4 path=ms0:/MUSIC/Album B/02 Last.mp3
+PLAY_REQUEST index=4 path=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=3486 path=ms0:/MUSIC/Album B/Special sleeve.JPEG
+POSITION_SAVED seconds=0 playing=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=1
+OPEN_FOLDER index=2 track=5 preview=1
+DIR_BEGIN path=ms0:/MUSIC/Album C
+DIR_ENTRY path=ms0:/MUSIC/Album C name=01 Uncovered.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album C name=AUDIO.OGG mode=000021c9 attr=00000020 kind=other-audio
+DIR_ENTRY path=ms0:/MUSIC/Album C name=not music.jpg mode=000021c9 attr=00000020 kind=file
+DIR_ENTRY path=ms0:/MUSIC/Album C name=NOTES.TXT mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album C entries=4 folders=0 mp3=1 other_audio=1 other=2 read=00000000
+ART_FILE decoded=0 bytes=20 path=ms0:/MUSIC/Album C/not music.jpg
+ART_MISSING track=ms0:/MUSIC/Album C/01 Uncovered.mp3
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=2 playing=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=1
+RETURN_PLAYER selected=4 preview=0 path=ms0:/MUSIC/Album B/02 Last.mp3
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=3486 path=ms0:/MUSIC/Album B/Special sleeve.JPEG
+POSITION_SAVED seconds=3 playing=ms0:/MUSIC/Album B/02 Last.mp3
+SELECT kind=track index=3 path=ms0:/MUSIC/Album B/01 Another.mp3
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=4 playing=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=1
+SELECT kind=track index=4 path=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=1
+SELECT kind=track index=3 path=ms0:/MUSIC/Album B/01 Another.mp3
+AUDIO state=2 seconds=7 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=7 playing=ms0:/MUSIC/Album B/02 Last.mp3
+AUDIO state=2 seconds=8 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=9 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=10 rate=44100 bitrate=192 error=00000000 generation=1
+SCROLL_IDLE_RETURN seconds=4
+RETURN_PLAYER selected=4 preview=0 path=ms0:/MUSIC/Album B/02 Last.mp3
+SELECT kind=track index=3 path=ms0:/MUSIC/Album B/01 Another.mp3
+PLAY_REQUEST index=3 path=ms0:/MUSIC/Album B/01 Another.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=2
+DIR_BEGIN path=ms0:/MUSIC/Album B
+DIR_ENTRY path=ms0:/MUSIC/Album B name=01 Another.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=02 Last.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album B name=Special sleeve.JPEG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album B entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+ART_FILE decoded=1 bytes=3486 path=ms0:/MUSIC/Album B/Special sleeve.JPEG
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=2
+POSITION_SAVED seconds=0 playing=ms0:/MUSIC/Album B/01 Another.mp3
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=2
+DIR_BEGIN path=ms0:/
+DIR_ENTRY path=ms0:/ name=MUSIC mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/ name=PSP mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/ entries=2 folders=2 mp3=0 other_audio=0 other=0 read=00000000
+BROWSER path=ms0:/ entries=2 read=00000000
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=2
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=Album A mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album B mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album C mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=3 folders=3 mp3=0 other_audio=0 other=0 read=00000000
+BROWSER path=ms0:/MUSIC entries=3 read=00000000
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=7 rate=44100 bitrate=192 error=00000000 generation=2
+DIR_BEGIN path=ms0:/MUSIC/Album C
+DIR_ENTRY path=ms0:/MUSIC/Album C name=01 Uncovered.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album C name=AUDIO.OGG mode=000021c9 attr=00000020 kind=other-audio
+DIR_ENTRY path=ms0:/MUSIC/Album C name=not music.jpg mode=000021c9 attr=00000020 kind=file
+DIR_ENTRY path=ms0:/MUSIC/Album C name=NOTES.TXT mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album C entries=4 folders=0 mp3=1 other_audio=1 other=2 read=00000000
+BROWSER path=ms0:/MUSIC/Album C entries=1 read=00000000
