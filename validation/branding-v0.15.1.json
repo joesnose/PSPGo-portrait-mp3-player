@@ -1,0 +1,13 @@
+{
+  "version": "0.15.1",
+  "launcher_title": "Portrait Player",
+  "icon_size": [
+    144,
+    80
+  ],
+  "base_program_version": "0.15",
+  "program_payload_unchanged": true,
+  "eboot_sha256": "7f7667401a033619027a64b884f69ee094d9a0f6ed914f174d3da154ac8cfeca",
+  "program_payload_sha256": "8cd3ba8c10926fb4ae946b470c429ee5d1d4dfab5bd34776d773be4702726fec",
+  "runtime_changes": false
+}

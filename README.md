@@ -1,4 +1,6 @@
-# PSPGo portrait MP3 player
+# Portrait Player
+
+![Portrait Player launcher icon](ICON0.PNG)
 
 An MP3 player for PSP Go, controllable with the screen closed. Live like it's 2011: portrait mode… hang it from your neck!
 
@@ -6,9 +8,11 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.15](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15/joesnose-portrait-music-v0.15.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15) · [Checksums](downloads/v0.15/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15/joesnose-portrait-music-v0.15-source.zip)
+**[Download v0.15.1](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.1/portrait-player-v0.15.1.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15.1) · [Checksums](downloads/v0.15.1/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.1/portrait-player-v0.15.1-source.zip)
 
-Extract the ZIP into `PSP/GAME/JoeMusic` on your Memory Stick. The application needs:
+Version **0.15.1** updates the launcher name and icon only; its program code is identical to v0.15.
+
+Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
 ```text
 PSP/GAME/JoeMusic/EBOOT.PBP
@@ -17,7 +21,7 @@ PSP/GAME/JoeMusic/music_buttons.prx
 
 The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper provides read-only HOME, volume and slider state; it has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.14 can replace just the EBOOT; the helper is unchanged.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15 can replace just the EBOOT; the helper is unchanged.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -90,7 +94,7 @@ Or with the PSPDEV Docker image:
 docker run --rm -v "$PWD:/src" -w /src pspdev/pspdev:latest sh -c 'make -C helper && make -j2'
 ```
 
-Copy the resulting `EBOOT.PBP` and `helper/music_buttons.prx` into the app folder. The EBOOT uses a normal-memory request (`MEMSIZE=0`). Generated font data is included; font regeneration is optional.
+Copy the resulting `EBOOT.PBP` and `helper/music_buttons.prx` into the app folder. The EBOOT uses a normal-memory request (`MEMSIZE=0`). Generated font data is included; font regeneration is optional. Launcher artwork is in `docs/artwork/`; `sh tools/update_icon.sh` regenerates `ICON0.PNG` using ImageMagick.
 
 Portable host checks include:
 
@@ -103,7 +107,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Validation results](validation/result.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Validation results](validation/result.json) and the [branding-only payload check](validation/branding-v0.15.1.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 

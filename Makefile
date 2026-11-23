@@ -7,7 +7,7 @@ ASFLAGS = -G0
 LIBS = -lpng -ljpeg -lz -lpspmp3 -lpspaudio -lpsppower -lm
 EXTRA_TARGETS = EBOOT.PBP
 PSP_EBOOT_ICON = ICON0.PNG
-PSP_EBOOT_TITLE = joesnose_player 0.15
+PSP_EBOOT_TITLE = Portrait Player
 PSPSDK := $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
 

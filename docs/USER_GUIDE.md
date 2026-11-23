@@ -1,10 +1,10 @@
-# Joe's Portrait Music — PSP Go 0.15 — return to playing and saved position
+# Portrait Player — PSP Go v0.15.1
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.15 returns to the actual playing track when the slider closes, shows the artist below the artwork, and returns after four seconds of idle song browsing. It retains the audio, helper, themes and album Library from the working builds.
+Version 0.15.1 changes the launcher title and icon only. The program is identical to v0.15, which returns to the actual playing track when the slider closes, shows the artist below the artwork, and returns after four seconds of idle song browsing. It retains the audio, helper, themes and album Library from the working builds.
 
 Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It is now a read-only HOME/volume getter: no firmware patches, input hooks, volume setters or background threads.
 
