@@ -6,7 +6,7 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.15](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/download/v0.15/joesnose-portrait-music-v0.15.zip)** · [Release notes and checksums](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/download/v0.15/joesnose-portrait-music-v0.15-source.zip)
+**[Download v0.15](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15/joesnose-portrait-music-v0.15.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15) · [Checksums](downloads/v0.15/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15/joesnose-portrait-music-v0.15-source.zip)
 
 Extract the ZIP into `PSP/GAME/JoeMusic` on your Memory Stick. The application needs:
 
