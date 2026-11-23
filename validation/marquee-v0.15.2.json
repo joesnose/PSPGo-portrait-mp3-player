@@ -1,0 +1,13 @@
+{
+  "version": "0.15.2",
+  "eboot_sha256": "0cf3a3ab345c75e7d833f4aed233ee76d0550961707315f926e06d77e8eb74e1",
+  "selected_library_name_and_path_scroll": true,
+  "player_title_album_artist_scroll": true,
+  "selected_song_scroll": true,
+  "thumbnails_and_adjacent_rows_preserved": true,
+  "text_clipped_to_selected_row": true,
+  "long_name_completes_before_idle_return": true,
+  "short_name_idle_return_retained": true,
+  "no_browsing_playback_change": true,
+  "hardware_test": false
+}

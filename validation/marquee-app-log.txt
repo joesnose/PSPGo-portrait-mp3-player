@@ -1,0 +1,103 @@
+BUILD=0.15.2 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=ms0:/PSP/GAME/JoeMusic
+AUDIO init=00000000
+NOTICE Helper absent: Circle plays; normal HOME
+DIR_OPEN error=80010002 path=ef0:/MUSIC
+STANDARD_LOCATION path=ef0:/MUSIC available=0
+DIR_BEGIN path=ms0:/MUSIC
+STANDARD_LOCATION path=ms0:/MUSIC available=1
+DIR_OPEN error=80010002 path=ef0:/PSP/MUSIC
+STANDARD_LOCATION path=ef0:/PSP/MUSIC available=0
+DIR_OPEN error=80010002 path=ms0:/PSP/MUSIC
+STANDARD_LOCATION path=ms0:/PSP/MUSIC available=0
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=An exceptionally long album folder name that needs horizontal scrolling mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Short Album mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=2 folders=2 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Short Album
+DIR_ENTRY path=ms0:/MUSIC/Short Album name=01 Other.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Short Album entries=1 folders=0 mp3=1 other_audio=0 other=0 read=00000000
+FOLDERS count=2 tracks=3
+NOTICE 3 tracks; 0 skipped entries
+RESTORE_SELECTION index=1 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=0 seconds=0 rate=0 bitrate=0 error=00000000 generation=0
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+PLAY_REQUEST index=1 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=1
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+DIR_BEGIN path=ms0:/MUSIC/Short Album
+DIR_ENTRY path=ms0:/MUSIC/Short Album name=01 Other.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Short Album entries=1 folders=0 mp3=1 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/Short Album/01 Other.mp3
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=1
+OPEN_FOLDER index=0 track=0 preview=1
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=5 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=7 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=8 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=9 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=10 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=11 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=12 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=13 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=14 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=15 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=15 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=16 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=17 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=18 rate=44100 bitrate=192 error=00000000 generation=1
+AUDIO state=2 seconds=19 rate=44100 bitrate=192 error=00000000 generation=1
+SCROLL_IDLE_RETURN seconds=4
+RETURN_PLAYER selected=1 preview=0 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=20 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=20 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+SELECT kind=track index=0 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+AUDIO state=2 seconds=21 rate=44100 bitrate=192 error=00000000 generation=1
+POSITION_SAVED seconds=21 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+PLAY_REQUEST index=0 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=2
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=2
+SELECT kind=track index=1 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=2
+POSITION_SAVED seconds=1 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=2
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=2
+SCROLL_IDLE_RETURN seconds=4
+RETURN_PLAYER selected=0 preview=0 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3

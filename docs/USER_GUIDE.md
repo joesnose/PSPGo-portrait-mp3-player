@@ -1,10 +1,10 @@
-# Portrait Player — PSP Go v0.15.1
+# Portrait Player — PSP Go v0.15.2
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.15.1 changes the launcher title and icon only. The program is identical to v0.15, which returns to the actual playing track when the slider closes, shows the artist below the artwork, and returns after four seconds of idle song browsing. It retains the audio, helper, themes and album Library from the working builds.
+Version 0.15.2 adds horizontal scrolling for long selected Library names and paths, highlighted player songs, and overflowing title, album and artist labels. Text pauses before moving and at the end, then returns. Short labels remain stationary, and unselected rows stay shortened. Audio and controls are unchanged.
 
 Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It is now a read-only HOME/volume getter: no firmware patches, input hooks, volume setters or background threads.
 
@@ -73,7 +73,7 @@ Opening a Library folder, or using folder navigation on the player, enters folde
 
 ## Four-second return and artist display
 
-When a track is playing or paused, scrolling the player starts a four-second idle timer. Each further scroll restarts it. When it expires, the display returns to the active song, artwork and list position without restarting audio. Opening a folder starts the same timer; Library and Settings are not forcibly dismissed by it. Selecting a song to play cancels the pending return. The active track is looked up when returning, so automatic next-track playback cannot send the display back to an old song.
+When a track is playing or paused, scrolling the player starts a four-second idle timer. Each further scroll restarts it. Long highlighted names get one complete scrolling pass and an end pause before returning, even if that takes longer than four seconds. When the timer and this reading pause have finished, the display returns to the active song, artwork and list position without restarting audio. Opening a folder starts the same timer; Library and Settings are not forcibly dismissed by it. Selecting a song to play cancels the pending return. The active track is looked up when returning, so automatic next-track playback cannot send the display back to an old song.
 
 The line immediately below the artwork now shows the artist for the displayed playing track or folder-preview selection. Missing tags show `Unknown artist`.
 
@@ -147,3 +147,7 @@ The emulator scripts are development harnesses with workspace-specific PPSSPP/X1
 ## Credits and license
 
 The player is BSD-2-Clause licensed. The firmware MP3 pipeline is based on Alexander Berl's 2008 BSD-licensed [PSPSDK MP3 sample](https://github.com/pspdev/pspsdk/tree/master/src/samples/mp3); the interface font is rasterized from DejaVu Sans. See `licenses/PSPSDK-LICENSE` and `licenses/DejaVu-font-LICENSE.txt`. Uses the PSP firmware MP3 decoder, libpng, libjpeg and zlib; third-party notices are included in the release. ARK's published KUBridge/SystemCtrlForUser interfaces are used to load the application helper and resolve its syscall.
+
+## Version 0.15.2 verification
+
+Sanitized host checks cover marquee timing, bounds, state resets, hidden views and clock wrap. Focused PPSSPP checks cover selected Library and player text, clipping beside thumbnails and neighbouring rows, long-name reading time, ordinary short-name idle return and browsing without changing playback. See `validation/marquee-v0.15.2.json`. These checks do not replace a physical PSP test.

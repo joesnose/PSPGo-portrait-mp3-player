@@ -8,9 +8,9 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.15.1](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.1/portrait-player-v0.15.1.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15.1) · [Checksums](downloads/v0.15.1/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.1/portrait-player-v0.15.1-source.zip)
+**[Download v0.15.2](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.2/portrait-player-v0.15.2.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.15.2) · [Checksums](downloads/v0.15.2/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.15.2/portrait-player-v0.15.2-source.zip)
 
-Version **0.15.1** updates the launcher name and icon only; its program code is identical to v0.15.
+Version **0.15.2** scrolls long selected folder names and paths in Library, the highlighted song in the player, and overflowing title, album and artist text. Text pauses before moving and at the end, then scrolls back. Short names stay still; unselected rows retain their shortened labels.
 
 Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
@@ -21,7 +21,7 @@ PSP/GAME/JoeMusic/music_buttons.prx
 
 The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper provides read-only HOME, volume and slider state; it has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15 can replace just the EBOOT; the helper is unchanged.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15.1 can replace just the EBOOT; the helper is unchanged.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -51,7 +51,7 @@ Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms
 | **Open the sliding screen** | Bring Library in from the right of the portrait screen. |
 | **Close the sliding screen** | Slide Library out to the right and return to the currently playing track. |
 
-Song browsing returns to the playing track after **four seconds without scrolling**. Each scroll restarts that timer; choosing a song to play cancels it. The timer does not dismiss Library or Settings. Music continues while browsing and moving the slider.
+Song browsing returns to the playing track after **four seconds without scrolling**. If the highlighted name is too long to fit, it gets one full scrolling pass and an end pause before returning. Each scroll restarts that timer; choosing a song to play cancels it. The timer does not dismiss Library or Settings. Music continues while browsing and moving the slider.
 
 If the helper is missing or fails to load, **Circle remains the playback control**, and HOME retains its normal firmware behaviour.
 
@@ -107,7 +107,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Validation results](validation/result.json) and the [branding-only payload check](validation/branding-v0.15.1.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Previous validation results](validation/result.json) and the [v0.15.2 scrolling checks](validation/marquee-v0.15.2.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 

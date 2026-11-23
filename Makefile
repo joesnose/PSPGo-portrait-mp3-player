@@ -1,5 +1,5 @@
 TARGET = joesnose_music
-OBJS = src/main.o src/theme.o src/core.o src/fs.o src/controls.o src/session.o src/probe.o src/player.o src/pcm.o src/slide_panel.o src/gfx.o src/ui_fonts.o src/cfw.o
+OBJS = src/main.o src/theme.o src/core.o src/fs.o src/controls.o src/marquee.o src/session.o src/probe.o src/player.o src/pcm.o src/slide_panel.o src/gfx.o src/ui_fonts.o src/cfw.o
 BUILD_PRX = 1
 PSP_LARGE_MEMORY = 0
 CFLAGS = -O2 -G0 -Wall -Wextra -Wno-misleading-indentation -std=gnu11

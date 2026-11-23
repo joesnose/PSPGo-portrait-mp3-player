@@ -12,6 +12,7 @@
 #include "core.h"
 #include "fs.h"
 #include "ui_fonts.h"
+#include "marquee.h"
 extern unsigned char msx[];
 static uint32_t *fb,*panel_pixels,*panel_base;static int buffer;
 static FILE *art_log;
@@ -50,6 +51,15 @@ void fitted(int x,int y,const char *s,int width,uint32_t color,int size){
  while(*s&&n+8<sizeof(b)){const char *start=s;unsigned c=next_char(&s);int adv=f->glyphs[c].advance;if(w+adv+extra>width)break;size_t bytes=s-start;memcpy(b+n,start,bytes);n+=bytes;w+=adv;}
  memcpy(b+n,"...",4);label(x,y,b,color,size);
 }
+static Marquee marquees[6];
+void scrolling_label(unsigned slot,int x,int y,const char *s,int width,uint32_t color,int size,uint32_t key){
+ if(slot>=6||width<=0)return;int left=x,right=x+width;int offset=marquee_offset(&marquees[slot],s,key,label_width(s,size),width,sceKernelGetSystemTimeLow());x-=offset;
+ const UiFont *f=font_for(size);while(*s&&x<right){unsigned c=next_char(&s);const UiGlyph *g=&f->glyphs[c];if(x+g->width<=left){x+=g->advance;continue;}
+  for(int row=0;row<f->height;row++)for(int col=0;col<g->width;col++){unsigned a=f->pixels[g->offset+row*g->width+col];int px=x+col,py=y+row;if(a&&px>=left&&px<right&&(unsigned)px<272&&(unsigned)py<480){uint32_t bg=fb[(271-px)*512+py];pixel(px,py,a==255?color:blend(color,bg,a));}}
+  x+=g->advance;
+ }
+}
+int scrolling_label_read(unsigned slot,const char *s,uint32_t key,uint32_t now){return slot<6&&marquee_read(&marquees[slot],s,key,now);}
 void title_lines(int x,int y,const char *s,int width,uint32_t color){
  const UiFont *f=font_for(20);char b[PATH_CAP];size_t n=0,last_space=0;int w=0;
  const char *start=s;while(*s&&n+8<sizeof(b)){const char *p=s;unsigned c=next_char(&s);int adv=f->glyphs[c].advance;if(w+adv>width){s=p;break;}size_t bytes=s-p;if(c==' ')last_space=n;memcpy(b+n,p,bytes);n+=bytes;w+=adv;}

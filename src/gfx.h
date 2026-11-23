@@ -19,6 +19,8 @@ void line_text(int x,int y,const char *str,int chars,uint32_t c);
 void rounded(int x,int y,int w,int h,int radius,uint32_t c);
 void label(int x,int y,const char *s,uint32_t color,int size);
 int label_width(const char *s,int size);
+void scrolling_label(unsigned slot,int x,int y,const char *s,int width,uint32_t color,int size,uint32_t key);
+int scrolling_label_read(unsigned slot,const char *s,uint32_t key,uint32_t now);
 void fitted(int x,int y,const char *s,int width,uint32_t color,int size);
 void title_lines(int x,int y,const char *s,int width,uint32_t color);
 void folder_icon(int x,int y,uint32_t color);
