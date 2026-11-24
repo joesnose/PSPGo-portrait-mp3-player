@@ -1,0 +1,2 @@
+11bdb2810604d190a14cdb056a5c1e2564649ec1cafbb544ee72b7a61ba42ba8  portrait-player-v0.18-source.zip
+b4dee66a6ac8d11dd14b69315ab446217bcbbdac0682cdd1b480b29831957944  portrait-player-v0.18.zip

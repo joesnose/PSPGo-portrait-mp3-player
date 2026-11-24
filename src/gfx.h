@@ -29,6 +29,8 @@ void transport(int playing);
 void playback_icon(int x,int y,int playing);
 void cover_thumbnails_clear(void);
 void cover_shutdown(void);
+void cover_cache_setup(const char *base);
+void cover_cache_stats(unsigned *decoded,unsigned *disk);
 void folder_thumbnail(int x,int y,const char *folder,const char *representative);
 void cover_log(FILE *log);
 void cover_load(const unsigned char *data,size_t size,const char *track);

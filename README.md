@@ -8,9 +8,9 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.17](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.17/portrait-player-v0.17.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.17) · [Checksums](downloads/v0.17/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.17/portrait-player-v0.17-source.zip)
+**[Download v0.18](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.18/portrait-player-v0.18.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.18) · [Checksums](downloads/v0.18/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.18/portrait-player-v0.18-source.zip)
 
-Version **0.17** keeps Library folders open, uses shared PSP system volume for the portrait analogue control, replaces frame-reset seeking with decode-discard seeking, and loads Library thumbnails in a background worker. Long-name scrolling and the progress bar are retained. Xing/Info and VBRI metadata improve VBR duration reporting.
+Version **0.18** adds persistent thumbnail caching and thumbnail-size decoding, keeps the newly selected artwork visible during playback handover, and separates the requested seek position from the decoder's internal progress. Held rewind now adjusts the requested target consistently. EOF feeding is also bounded so a finished track cannot be fed again.
 
 Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
@@ -21,7 +21,7 @@ PSP/GAME/JoeMusic/music_buttons.prx
 
 The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper reads HOME, volume and slider state and adjusts the system volume through the firmware API. It has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. **For v0.17, replace both `EBOOT.PBP` and `music_buttons.prx`.** The updated helper is required for analogue system-volume control.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. **From v0.17, replace `EBOOT.PBP` only; its helper is unchanged.** From v0.16 or earlier, replace both `EBOOT.PBP` and `music_buttons.prx` to get shared system volume.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -61,7 +61,9 @@ If the helper is missing or fails to load, **Circle remains the playback control
 
 Press **SELECT → Add a music folder**, choose a storage device, and browse to a music folder. Press **Cross** to include that folder and every subfolder. Add more locations if needed, then **Triangle** in Settings to rescan.
 
-Library shows folders containing MP3s, with cover tiles loaded by a background worker. Folder placeholders appear while uncached art loads, keeping navigation responsive. Missing art retains the folder icon. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
+Library shows folders containing MP3s, with cover tiles loaded by a background worker. Up to 64 thumbnails stay in RAM, and decoded thumbnails are saved in `cover-cache-v1` beside the EBOOT for later visits and launches. Only the first visit needs the source image decoded; placeholders appear while uncached art loads. Missing art retains the folder icon. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
+
+Cached thumbnails are checked against their source image, track, folder and theme when loaded. Rescan after changing covers; deleting `cover-cache-v1` safely rebuilds thumbnails. Keep it for faster subsequent launches.
 
 Embedded JPEG/PNG art is preferred. Folder images can use names such as `cover.jpg`, `folder.jpg` or `front.jpeg`; other JPEG/PNG filenames are also discovered. Both RGB and CMYK JPEGs are supported. The artist appears below the full-size artwork; missing tags show `Unknown artist`.
 
@@ -79,7 +81,7 @@ The selected song/folder saves when browsing settles, periodically during playba
 
 Playback time and active-track metadata are recorded separately, but **resuming audio at that timestamp is not enabled**. Audio does not start automatically. Volume reversal is not enabled. Suspend/resume and internal-launch card access are not guaranteed.
 
-Playback is MP3-only; there is no EQ or streaming. The bottom progress bar follows the playing track, between its elapsed timer and play/pause icon. Duration uses Xing/Info or VBRI metadata where present, then decoder counts or a bitrate estimate; files without duration metadata can still have an approximate total. Analogue and physical volume keys now share the PSP system volume. Seeking decodes and discards to the target and preserves paused/playing state; distant rewinds can take longer. Reaching EOF while seeking pauses there instead of selecting another track. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
+Playback is MP3-only; there is no EQ or streaming. The bottom progress bar follows the playing track, between its elapsed timer and play/pause icon. Duration uses Xing/Info or VBRI metadata where present, then decoder counts or a bitrate estimate; files without duration metadata can still have an approximate total. Analogue and physical volume keys now share the PSP system volume. The timer shows the requested seek position while the decoder catches up internally. Held seek adjusts that target rather than the internal decoder counter. Seeking preserves paused/playing state; distant rewinds can take longer. Reaching EOF while seeking pauses there instead of selecting another track. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
 
 ## Build from source
 
@@ -109,7 +111,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Previous validation results](validation/result.json) and the [v0.17 player checks](validation/regression-v0.17.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Previous validation results](validation/result.json) and the [v0.18 focused checks](validation/fixes-v0.18.json) and [playback regressions](validation/regression-v0.18.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 

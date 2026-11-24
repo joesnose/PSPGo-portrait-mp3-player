@@ -24,9 +24,10 @@ static char wanted[PATH_CAP];
 static int request,paused,quitting,revision,seek_pending;static unsigned seek_target;
 static void lock(void){sceKernelWaitSema(mutex,1,0);}static void unlock(void){sceKernelSignalSema(mutex,1);}
 static void publish(int state,int error,int generation,uint64_t frames,int rate,int bitrate,const char *path){
- lock();published.duration_exact=duration_exact;published.seeking=seeking;published.duration=duration;published.state=state;published.error=error;published.generation=generation;published.seconds=rate>0?frames/(unsigned)rate:0;published.rate=rate;published.bitrate=bitrate;snprintf(published.path,sizeof(published.path),"%s",path);unlock();
+ lock();published.duration_exact=duration_exact;published.seeking=seeking||seek_pending;published.duration=duration;published.state=state;published.error=error;published.generation=generation;published.seconds=published.seeking?seek_target:rate>0?frames/(unsigned)rate:0;published.rate=rate;published.bitrate=bitrate;snprintf(published.path,sizeof(published.path),"%s",path);unlock();
 }
 static int fill(int fd,int handle,int *eof,SceOff end){
+ if(*eof)return 0; /* Never feed a decoder that wraps its request offset at EOF. */
  unsigned char *dst;SceInt32 n,pos;int rc=sceMp3GetInfoToAddStreamData(handle,&dst,&n,&pos);if(rc<0)return rc;if(pos>=end){*eof=1;return 0;}if(n<=0)return 0;
  if(sceIoLseek32(fd,pos,PSP_SEEK_SET)<0)return -1;int got=sceIoRead(fd,dst,n);if(got==0||(got>0&&(SceOff)pos+got>=end))*eof=1;if(got<=0)return got;rc=sceMp3NotifyAddStreamData(handle,got);return rc<0?rc:got;
 }
@@ -98,10 +99,10 @@ int player_init(void){
  mutex=sceKernelCreateSema("music_state",0,1,1,0);if(mutex<0)return mutex;
  thread=sceKernelCreateThread("music_audio",worker,0x18,64*1024,PSP_THREAD_ATTR_USER,0);if(thread<0)return thread;return sceKernelStartThread(thread,0,0);
 }
-void player_play(const char *path){if(mutex<0)return;lock();snprintf(wanted,sizeof(wanted),"%s",path);paused=0;seek_pending=0;request=1;revision++;unlock();}
+int player_play(const char *path){if(mutex<0)return -1;lock();snprintf(wanted,sizeof(wanted),"%s",path);paused=0;seek_pending=0;request=1;int generation=++revision;unlock();return generation;}
 void player_pause(void){if(mutex<0)return;lock();paused=!paused;unlock();}
 void player_stop(void){if(mutex<0)return;lock();request=2;paused=0;seek_pending=0;revision++;unlock();}
-void player_seek(int delta){if(mutex<0)return;lock();if(published.state==PLAYER_PLAYING||published.state==PLAYER_PAUSED){int64_t value=(seek_pending?seek_target:published.seconds)+(int64_t)delta;if(value<0)value=0;if(published.duration_exact&&published.duration&&value>=(int64_t)published.duration)value=published.duration>1?published.duration-1:0;seek_target=(unsigned)value;seek_pending=1;}unlock();}
+void player_seek(int delta){if(mutex<0)return;lock();if(!request&&(published.state==PLAYER_PLAYING||published.state==PLAYER_PAUSED)){int64_t value=(seek_pending||published.seeking?seek_target:published.seconds)+(int64_t)delta;if(value<0)value=0;if(published.duration_exact&&published.duration&&value>=(int64_t)published.duration)value=published.duration>1?published.duration-1:0;seek_target=(unsigned)value;seek_pending=1;published.seeking=1;published.seconds=seek_target;}unlock();}
 Playback player_snapshot(void){Playback p={0};if(mutex>=0){lock();p=published;unlock();}return p;}
 void player_shutdown(void){
  if(mutex>=0){lock();quitting=1;unlock();}if(thread>=0){sceKernelWaitThreadEnd(thread,0);sceKernelDeleteThread(thread);thread=-1;}

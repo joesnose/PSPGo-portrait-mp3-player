@@ -1,0 +1,1 @@
+PASS: persistent pixel round-trip, colour conversion, source/track/theme invalidation and corrupt/truncated cache recovery

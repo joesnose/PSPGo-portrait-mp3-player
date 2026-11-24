@@ -21,7 +21,7 @@
 #include "controls.h"
 #include "slide_panel.h"
 #include "session.h"
-PSP_MODULE_INFO("JoesPortraitMusic",0,0,17);
+PSP_MODULE_INFO("JoesPortraitMusic",0,0,18);
 PSP_MAIN_THREAD_ATTR(PSP_THREAD_ATTR_USER);
 PSP_MAIN_THREAD_STACK_SIZE_KB(512);
 PSP_HEAP_SIZE_KB(20*1024);
@@ -32,7 +32,7 @@ extern int sctrlKernelMsIsEf(void);
 extern int sceImposeHomeButton(void);
 static volatile int running=1;
 static Roots roots;static Library library;static Tags tags;
-static char theme_file[PATH_CAP];static char base[PATH_CAP],config[PATH_CAP],browser[PATH_CAP],shown[PATH_CAP],notice[128],direct_playing[PATH_CAP];
+static int requested_generation;static char requested_art[PATH_CAP];static char theme_file[PATH_CAP];static char base[PATH_CAP],config[PATH_CAP],browser[PATH_CAP],shown[PATH_CAP],notice[128],direct_playing[PATH_CAP];
 static uint32_t title_changed;static float drum_offset;static char title_old[256],album_old[256],title_new[256],album_new[256];
 static int *shuffle_order,shuffle_enabled,shuffle_cursor;static unsigned library_revision;static int *album_indices,album_count,album_selected;static const char *card_root="ms0:/";static int direct_card;
 static BrowseIdle browse_idle;static char preview_art_path[PATH_CAP];static int folder_preview;static int page,selected,folder_selected,browse_selected,playing_index=-1,ended_generation=-1;
@@ -72,7 +72,7 @@ static void show_library(void){library_browsing=1;browse_idle.armed=0;page=LIBRA
 static void play_index(int index){
  if(!audio_ready){note("MP3 decoder unavailable - see log");return;}if(!library.count){note("Choose music folders with SELECT");return;}
  if(index<0)index=(int)library.count-1;if(index>=(int)library.count)index=0;folder_preview=0;browse_idle.armed=0;
- if(shuffle_enabled)for(size_t i=0;i<library.count;i++)if(shuffle_order[i]==index){shuffle_cursor=(int)i;break;}direct_playing[0]=0;playing_index=selected=index;if(logfile){fprintf(logfile,"PLAY_REQUEST index=%d path=%s\n",index,library.paths[index]);fflush(logfile);}player_play(library.paths[index]);
+ if(shuffle_enabled)for(size_t i=0;i<library.count;i++)if(shuffle_order[i]==index){shuffle_cursor=(int)i;break;}direct_playing[0]=0;playing_index=selected=index;if(logfile){fprintf(logfile,"PLAY_REQUEST index=%d path=%s\n",index,library.paths[index]);fflush(logfile);}snprintf(requested_art,sizeof(requested_art),"%s",library.paths[index]);requested_generation=player_play(library.paths[index]);
 }
 static void skip(int direction){if(shuffle_enabled&&library.count){int next=(shuffle_cursor+direction+(int)library.count)%(int)library.count;play_index(shuffle_order[next]);}else play_index(playing_index<0?0:playing_index+direction);}
 static void shuffle_all(void){
@@ -91,7 +91,7 @@ static void play_selected(void){
  library_browsing=0;folder_preview=0;browse_idle.armed=0;
  Playback p=player_snapshot();const char *choice=selected_path();
  if(choice){if(p.path[0]&&!music_path_compare(choice,p.path)&&(p.state==PLAYER_PLAYING||p.state==PLAYER_PAUSED))player_pause();else play_index(selected);}
- else if(direct_playing[0]){if(p.state==PLAYER_PLAYING||p.state==PLAYER_PAUSED)player_pause();else player_play(direct_playing);}
+ else if(direct_playing[0]){if(p.state==PLAYER_PLAYING||p.state==PLAYER_PAUSED)player_pause();else {snprintf(requested_art,sizeof(requested_art),"%s",direct_playing);requested_generation=player_play(direct_playing);}}
  else {note("Choose a track from your music folders");return;}page=NOW;
 }
 static void return_to_player(void){
@@ -250,8 +250,8 @@ static void open_home_menu(uint32_t now){
 int main(void){
  sceCtrlSetSamplingCycle(0);sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
  int cb=sceKernelCreateThread("music_callbacks",callback_thread,0x11,16384,PSP_THREAD_ATTR_USER,0);if(cb>=0)sceKernelStartThread(cb,0,0);
- if(!getcwd(base,sizeof(base)))strcpy(base,".");path_join(config,base,"folders.cfg");path_join(theme_file,base,"theme.cfg");theme_load(theme_file);remove("JOE_MUSIC_LOG.txt");logfile=fopen("JOE_MUSIC_LOG.txt","wb");if(logfile){fprintf(logfile,"BUILD=0.17 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=%s\n",base);fflush(logfile);}
- music_fs_log(logfile);cover_log(logfile);gfx_init();busy("Starting MP3 decoder...");int rc=player_init();audio_ready=rc>=0;if(logfile){fprintf(logfile,"AUDIO init=%08x\n",rc);fflush(logfile);}busy("Starting HOME controls...");helper_init();busy("Checking music storage...");
+ if(!getcwd(base,sizeof(base)))strcpy(base,".");path_join(config,base,"folders.cfg");path_join(theme_file,base,"theme.cfg");theme_load(theme_file);remove("JOE_MUSIC_LOG.txt");logfile=fopen("JOE_MUSIC_LOG.txt","wb");if(logfile){fprintf(logfile,"BUILD=0.18 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=%s\n",base);fflush(logfile);}
+ music_fs_log(logfile);cover_log(logfile);cover_cache_setup(base);gfx_init();busy("Starting MP3 decoder...");int rc=player_init();audio_ready=rc>=0;if(logfile){fprintf(logfile,"AUDIO init=%08x\n",rc);fflush(logfile);}busy("Starting HOME controls...");helper_init();busy("Checking music storage...");
  if(storage_redirected){direct_card=music_is_dir("fatms0:/");if(direct_card)card_root="fatms0:/";if(logfile){fprintf(logfile,"CARD_BYPASS available=%d prefix=%s\n",direct_card,card_root);fflush(logfile);}}
  roots_load(&roots,config);for(int i=0;i<roots.count;i++)card_path(roots.roots[i],0);
  const char *standard[]={"ef0:/MUSIC","ms0:/MUSIC","ef0:/PSP/MUSIC","ms0:/PSP/MUSIC"};
@@ -259,7 +259,7 @@ int main(void){
  if(!roots.defaults_checked){int added=0;for(unsigned i=0;i<4;i++){char path[PATH_CAP];snprintf(path,sizeof(path),"%s",standard[i]);card_path(path,0);if(music_is_dir(path)&&root_add(&roots,path)>=0)added++;}roots.defaults_checked=1;save_roots();if(logfile){fprintf(logfile,"ROOTS_MIGRATED added=%d selected=%d\n",added,roots.count);fflush(logfile);}}
  rescan();restore_position();page=NOW;SlidePanel panel;slide_panel_init(&panel);int saved_selected=selected;uint32_t selection_changed=0,position_saved_at=sceKernelGetSystemTimeLow();
  int logged_state=-1,logged_seeking=-1;unsigned logged_second=~0u;
- int stick_last=0;uint32_t stick_at=0;
+ int stick_last=0;uint32_t stick_at=0,cache_logged=0;unsigned logged_decoded=0,logged_disk=0;
  unsigned last=0,last_nav=0;uint32_t nav_since=0;int nav_repeated=0;Press left={0},right={0},home={0};uint32_t last_left=0,last_right=0;int left_armed=0,right_armed=0;
  while(running){
   SceCtrlData pad;memset(&pad,0,sizeof(pad));pad.Lx=pad.Ly=128;sceCtrlPeekBufferPositive(&pad,1);unsigned buttons=rotate_faces(pad.Buttons),pressed=buttons&~last;last=buttons;uint32_t now=sceKernelGetSystemTimeLow();
@@ -269,7 +269,7 @@ int main(void){
   update_volume(raw,now);
   /* Portrait up = physical left; portrait right = physical up. Ignore diagonals near the dead zone. */
   int ax=(int)pad.Lx-128,ay=(int)pad.Ly-128,stick=0;if(abs(ax)>64||abs(ay)>64)stick=abs(ax)>=abs(ay)?(ax<0?1:2):(ay<0?3:4);
-  if(stick&&(stick!=stick_last||(uint32_t)(now-stick_at)>=(stick<=2?150000u:500000u))){stick_at=now;if(stick<=2){if(adjust_volume){int value=adjust_volume(stick==1?1:-1);if(value>=0&&value<=30){system_volume=last_volume=value;volume_visible=1;volume_shown_at=now;volume_direction=stick==1?1:-1;}if(logfile){fprintf(logfile,"STICK_SYSTEM_VOLUME value=%d\n",value);fflush(logfile);}}else note("Update music_buttons.prx for analogue volume");}else if(page==NOW){player_seek(stick==3?5:-5);if(logfile){fprintf(logfile,"SEEK delta=%d from=%u\n",stick==3?5:-5,player_snapshot().seconds);fflush(logfile);}}}
+  if(stick&&(stick!=stick_last||(uint32_t)(now-stick_at)>=(stick<=2?150000u:500000u))){stick_at=now;if(stick<=2){if(adjust_volume){int value=adjust_volume(stick==1?1:-1);if(value>=0&&value<=30){system_volume=last_volume=value;volume_visible=1;volume_shown_at=now;volume_direction=stick==1?1:-1;}if(logfile){fprintf(logfile,"STICK_SYSTEM_VOLUME value=%d\n",value);fflush(logfile);}}else note("Update music_buttons.prx for analogue volume");}else if(page==NOW){unsigned before=player_snapshot().seconds;player_seek(stick==3?5:-5);if(logfile){fprintf(logfile,"SEEK delta=%d from=%u target=%u\n",stick==3?5:-5,before,player_snapshot().seconds);fflush(logfile);}}}
   stick_last=stick;
   if(home_custom){int event=press_event(&home,!!(raw&PSP_CTRL_HOME),now,800000);if(event==PRESS_LONG){open_home_menu(now);continue;}if(event==PRESS_SHORT){if(logfile)fprintf(logfile,"HOME_SHORT play_selection\n");play_selected();}}
 
@@ -287,7 +287,7 @@ int main(void){
   if(move&&page==NOW){if(nav&(PSP_CTRL_LEFT|PSP_CTRL_RIGHT))select_music(delta,0);else select_music((nav&PSP_CTRL_UP)?1:-1,1);}
   else if(move){int *selection=page==LIBRARY?&album_selected:page==FOLDERS?&folder_selected:&browse_selected;int count=page==LIBRARY?album_count:page==FOLDERS?roots.count+3:page==BROWSE?(browser[0]?dir_count:2):0;
    if(count){*selection+=delta;if(*selection<0)*selection=count-1;if(*selection>=count)*selection=0;if(page==LIBRARY&&logfile){fprintf(logfile,"LIBRARY_SELECT index=%d\n",album_selected);fflush(logfile);}}}
-  if(page==NOW){if(pressed&PSP_CTRL_CROSS)play_selected();if(pressed&PSP_CTRL_SQUARE)player_stop();if(pressed&PSP_CTRL_CIRCLE)show_library();}
+  if(page==NOW){if(pressed&PSP_CTRL_CROSS)play_selected();if(pressed&PSP_CTRL_SQUARE){requested_art[0]=0;player_stop();}if(pressed&PSP_CTRL_CIRCLE)show_library();}
   else if(page==LIBRARY){if(pressed&PSP_CTRL_TRIANGLE)shuffle_all();if((pressed&PSP_CTRL_CROSS)&&album_count)open_album();if(pressed&PSP_CTRL_CIRCLE)return_to_player();}
   else if(page==FOLDERS){
    if((pressed&PSP_CTRL_TRIANGLE)&&open_direct_test())page=DIRECT;
@@ -297,7 +297,7 @@ int main(void){
   }else if(page==DIRECT){
    if(pressed&PSP_CTRL_CIRCLE)page=FOLDERS;
    if(pressed&PSP_CTRL_TRIANGLE)open_direct_test();
-   if(pressed&PSP_CTRL_CROSS){const char *path=probe_playable();if(path&&audio_ready){playing_index=-1;library_browsing=0;folder_preview=0;snprintf(direct_playing,sizeof(direct_playing),"%s",path);player_play(path);page=NOW;if(logfile){fprintf(logfile,"DIRECT_PLAY path=%s\n",path);fflush(logfile);}}}
+   if(pressed&PSP_CTRL_CROSS){const char *path=probe_playable();if(path&&audio_ready){playing_index=-1;library_browsing=0;folder_preview=0;snprintf(direct_playing,sizeof(direct_playing),"%s",path);snprintf(requested_art,sizeof(requested_art),"%s",path);requested_generation=player_play(path);page=NOW;if(logfile){fprintf(logfile,"DIRECT_PLAY path=%s\n",path);fflush(logfile);}}}
   }else if(page==BROWSE){
    if(pressed&PSP_CTRL_CROSS){if(!browser[0]){snprintf(browser,sizeof(browser),"%s",browse_selected?card_root:"ef0:/");list_dirs();}else if(browse_selected<dir_count){char path[PATH_CAP];if(path_join(path,browser,entries[browse_selected].name)){
  if(entries[browse_selected].directory){strcpy(browser,path);list_dirs();}
@@ -318,11 +318,13 @@ int main(void){
   if(p.state==PLAYER_PLAYING)scePowerTick(PSP_POWER_TICK_SUSPEND);
   if(selected!=saved_selected){saved_selected=selected;selection_changed=now;}if(selection_changed&&(uint32_t)(now-selection_changed)>700000u){remember_position();position_saved_at=now;selection_changed=0;}
   if((p.state==PLAYER_PLAYING||p.state==PLAYER_PAUSED)&&(uint32_t)(now-position_saved_at)>=10000000u){remember_position();position_saved_at=now;}
-  Playback visual=p;if(folder_preview&&preview_art_path[0])snprintf(visual.path,sizeof(visual.path),"%s",preview_art_path);refresh_art(&visual);slide_panel_request(&panel,page==LIBRARY,now);int panel_x=slide_panel_offset(&panel,now);gfx_clear(BACK);
+  Playback visual=p;if(requested_art[0]){snprintf(visual.path,sizeof(visual.path),"%s",requested_art);if(p.generation>=requested_generation&&!music_path_compare(p.path,requested_art))requested_art[0]=0;else{visual.seconds=visual.duration=0;visual.state=PLAYER_LOADING;}}if(folder_preview&&preview_art_path[0])snprintf(visual.path,sizeof(visual.path),"%s",preview_art_path);refresh_art(&visual);slide_panel_request(&panel,page==LIBRARY,now);int panel_x=slide_panel_offset(&panel,now);gfx_clear(BACK);
   if(page==LIBRARY&&panel_x==0)draw_library();
-  else {if(page==NOW||page==LIBRARY)draw_now(&p);else if(page==FOLDERS)draw_folders();else if(page==DIRECT)draw_direct();else draw_browser();
+  else {if(page==NOW||page==LIBRARY)draw_now(&visual);else if(page==FOLDERS)draw_folders();else if(page==DIRECT)draw_direct();else draw_browser();
    if(panel_x<272){if(gfx_panel_begin()){draw_library();gfx_panel_end(panel_x);}else if(page==LIBRARY)draw_library();}}
   draw_volume(now);gfx_flip();
+  if((uint32_t)(now-cache_logged)>=1000000u){unsigned decoded,disk;cover_cache_stats(&decoded,&disk);cache_logged=now;if(logfile&&(decoded!=logged_decoded||disk!=logged_disk)){fprintf(logfile,"ART_CACHE_STATS decoded=%u disk=%u\n",decoded,disk);fflush(logfile);logged_decoded=decoded;logged_disk=disk;}}
+
 
  }
  remember_position();if(home_custom||menu_waiting)sceImposeSetHomePopup(previous_popup>=0?previous_popup:1);adjust_volume=0;volume_read=0;read_volume=0;read_home_active=0;read_slide=0;helper_ready=0;player_shutdown();if(helper_uid>=0){int status;int rc=sceKernelStopModule(helper_uid,0,0,&status,0);if(rc>=0&&status>=0)sceKernelUnloadModule(helper_uid);}

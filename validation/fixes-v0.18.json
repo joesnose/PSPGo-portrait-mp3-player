@@ -1,0 +1,22 @@
+{
+  "version": "0.18",
+  "eboot_sha256": "55b5c8a3937aa00c443f1e08ac6dd03f4be960fb2867d611d067d8fad78741d8",
+  "old_cover_flash_absent": true,
+  "held_rewind_targets": [
+    20,
+    15
+  ],
+  "decoder_replay_hidden": true,
+  "rewind_keeps_song_and_target": true,
+  "persistent_thumbnail_files": 72,
+  "cold_cache_decodes_and_disk_hits": [
+    72,
+    6
+  ],
+  "warm_boot_decodes_and_disk_hits": [
+    0,
+    6
+  ],
+  "first_page_reload_seconds": 0.562,
+  "hardware_test": false
+}

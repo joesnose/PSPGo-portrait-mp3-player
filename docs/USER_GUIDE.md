@@ -1,14 +1,14 @@
-# Portrait Player — PSP Go v0.17
+# Portrait Player — PSP Go v0.18
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.17 keeps Library and its opened folders in browsing mode until you play a selection or return. It adds background thumbnail loading, shared analogue/system volume and revised decode-discard seeking, with Xing/Info and VBRI duration support. Existing portrait controls, scrolling and progress layout remain.
+Version 0.18 retains Library browsing, system volume and the existing portrait controls. Thumbnail-size decoding, a 64-entry RAM cache and persistent disk thumbnails reduce repeated cover loading. Playback handover retains the newly requested artwork. Rewind displays and adjusts its logical target while internal decoding catches up, and finished streams are not fed again.
 
-Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It reads HOME, volume and slider state, and changes the system volume through the standard firmware API. It has no firmware patches or input hooks.
+From v0.17, replace **`EBOOT.PBP` only** in `PSP/GAME/JoeMusic`; the helper is unchanged. Earlier versions need both `EBOOT.PBP` and `music_buttons.prx`. Keep `folders.cfg`, `position.txt`, `theme.cfg` and the generated `cover-cache-v1` directory. Do not register the helper in seplugins or PLUGINS.TXT.
 
-All previous versions need **both files replaced** for v0.17 analogue volume. Normal physical volume direction, themes, shuffle and the player layout are retained.
+Versions before v0.17 need **both files replaced** for analogue system volume. Normal physical volume direction, themes, shuffle and the player layout are retained.
 
 If startup still fails, rename `music_buttons.prx` to `music_buttons.off`, or place an empty `SAFE_MODE.txt` beside the EBOOT. The player will skip helper loading, use normal HOME/volume handling and allow physical Circle for play/pause. No uploaded log is required to try this. Startup screens distinguish decoder, HOME-control and storage setup.
 
@@ -79,7 +79,7 @@ The line immediately below the artwork now shows the artist for the displayed pl
 
 ## Library and Shuffle all
 
-START shows one row per folder containing MP3s, with its full path to distinguish duplicate names and storage devices. Rows now have 44 × 44 album-art tiles and larger matching folder icons when no cover is available. Six larger rows fit on screen; the list scrolls normally. Thumbnails use embedded or folder artwork and a bounded cache, without replacing the full-size player image. Select a folder with portrait Up/Down and press HOME or Circle to open its MP3-only list and preview its artwork on the player. Nested folders are separate Library entries; the player list stays within the selected directory. Opening a folder does not start music; press HOME or Circle again to play your chosen song. Nested folders with tracks have their own entries. Selected music roots and recursive scanning are unchanged.
+START shows one row per folder containing MP3s, with its full path to distinguish duplicate names and storage devices. Rows now have 44 × 44 album-art tiles and larger matching folder icons when no cover is available. Six larger rows fit on screen; the list scrolls normally. Thumbnails use embedded or folder artwork, decode to 44 × 44 pixels, and keep 64 RGB565 entries in RAM. Disk thumbnails in `cover-cache-v1` survive RAM eviction and app restarts. The worker prioritises recently visible rows. The full-size player image retains its own 224 × 224 buffer. Select a folder with portrait Up/Down and press HOME or Circle to open its MP3-only list and preview its artwork on the player. Nested folders are separate Library entries; the player list stays within the selected directory. Opening a folder does not start music; press HOME or Circle again to play your chosen song. Nested folders with tracks have their own entries. Selected music roots and recursive scanning are unchanged.
 
 **Physical Square on Library** starts a shuffled queue containing every track across all selected folders. Each track appears once before the queue wraps. Double-tap L/R and automatic next-track follow that queue; previous returns through the same order. Press Square again on Library to turn shuffle off without interrupting the current track. Refreshing the library also clears shuffle. Shuffle mode is not persisted across launches.
 
@@ -156,7 +156,7 @@ Sanitized host checks cover marquee timing, bounds, state resets, hidden views a
 
 Hold the PSP 90° clockwise. Moving the stick towards the top/bottom of the portrait screen raises/lowers PSP system volume. These are physical left/right on the unrotated PSP. Volume repeats while held and has a central dead zone. It changes the same 0–30 firmware volume used by the physical buttons; no separate player gain remains. The updated helper is required.
 
-Portrait right/left (physical up/down) seeks forwards/backwards five seconds on the player screen, repeating while held. It seeks the playing song even if another song is highlighted. Paused playback remains paused. Seeking decodes/discards to the target, resetting to the stream start for a rewind. This avoids frame-reset streaming failures, but distant rewinds can take longer. Reaching EOF during a seek pauses there rather than starting another song. Seeking is bounded at the start and at the duration when trusted metadata is available.
+Portrait right/left (physical up/down) seeks forwards/backwards five seconds on the player screen, repeating while held. It seeks the playing song even if another song is highlighted. Paused playback remains paused. Seeking decodes/discards to the target, resetting to the stream start for a rewind. The displayed time stays at the requested target while this internal work happens, and repeated input changes that target. This avoids showing a rewind as a jump to zero followed by fast-forwarding, but distant rewinds can still take longer. Reaching EOF during a seek pauses there rather than starting another song. Seeking is bounded at the start and at the duration when trusted metadata is available.
 
 A progress bar sits between the elapsed timer and play/pause icon. Duration comes from Xing/Info or VBRI metadata where available, then decoder frame counts or bitrate estimates. Totals without metadata can be approximate. The top title and album scroll to their ends once and stop; overflowing selected song names loop with five dots between repetitions, pausing at the start. A pending song still gets its first readable pass before the idle return.
 
@@ -169,3 +169,9 @@ Sanitized marquee checks cover one-pass stopping and loop wraparound as well as 
 Sanitized host tests cover shared volume/mute/limits and K1 restoration, MP3 duration headers and existing native directory/tag/scan cases. Focused PPSSPP checks cover 128/192-kbps CBR and VBR seeking at 44.1 kHz without track changes, pause preservation, persistent Library/folder browsing, cold artwork navigation, ordinary player idle return and genuine end-of-track advancement. See `validation/regression-v0.17.json`. System volume and physical slider behaviour still require confirmation on a PSP Go.
 
 Library thumbnails now decode in a lower-priority worker with independent image buffers. Cache locks protect only short copies, not file I/O or decompression. Cache invalidation cancels stale results, and the worker is joined before shutdown. A folder placeholder remains visible until art is ready.
+
+## Version 0.18 verification and thumbnail cache
+
+Sanitized host checks cover thumbnail pixel serialization, RGB565 colour conversion, source/track/theme invalidation and corrupt/truncated cache recovery. The focused PPSSPP check browses 72 albums, revisits the first page after RAM eviction, relaunches using disk thumbnails, samples the artwork during a new-song handover and checks held rewind targets and the displayed clock. Playback regressions cover CBR/VBR seeking, pause preservation, Library persistence and natural advancement; the stereo short-track test also checks decoded playback duration. See `validation/fixes-v0.18.json` and `validation/regression-v0.18.json`. Hardware confirmation remains necessary.
+
+Thumbnail files are small RGB565 images with version, source fingerprints and a checksum. Writes use a temporary file; invalid or incomplete entries are rebuilt. Rescan after changing cover files. Deleting `cover-cache-v1` rebuilds the cache without affecting music or settings. First-time decoding of large artwork can still take time, but subsequent loads use the saved thumbnail.

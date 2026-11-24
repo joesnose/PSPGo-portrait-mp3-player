@@ -1,0 +1,470 @@
+BUILD=0.18 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=ms0:/PSP/GAME/JoeMusic
+ART_CACHE enabled=1 path=ms0:/PSP/GAME/JoeMusic/cover-cache-v1
+AUDIO init=00000000
+NOTICE Helper absent: Circle plays; normal HOME
+DIR_OPEN error=80010002 path=ef0:/MUSIC
+STANDARD_LOCATION path=ef0:/MUSIC available=0
+DIR_BEGIN path=ms0:/MUSIC
+STANDARD_LOCATION path=ms0:/MUSIC available=1
+DIR_OPEN error=80010002 path=ef0:/PSP/MUSIC
+STANDARD_LOCATION path=ef0:/PSP/MUSIC available=0
+DIR_OPEN error=80010002 path=ms0:/PSP/MUSIC
+STANDARD_LOCATION path=ms0:/PSP/MUSIC available=0
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=Album 000 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 001 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 002 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 003 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 004 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 005 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 006 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 007 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 008 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 009 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 010 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 011 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 012 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 013 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 014 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 015 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 016 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 017 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 018 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 019 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 020 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 021 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 022 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 023 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 024 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 025 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 026 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 027 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 028 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 029 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 030 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 031 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 032 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 033 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 034 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 035 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 036 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 037 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 038 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 039 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 040 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 041 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 042 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 043 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 044 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 045 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 046 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Album 047 mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=72 folders=72 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 000
+DIR_ENTRY path=ms0:/MUSIC/Album 000 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 000 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 000 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 001
+DIR_ENTRY path=ms0:/MUSIC/Album 001 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 001 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 001 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 002
+DIR_ENTRY path=ms0:/MUSIC/Album 002 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 002 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 002 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 003
+DIR_ENTRY path=ms0:/MUSIC/Album 003 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 003 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 003 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 004
+DIR_ENTRY path=ms0:/MUSIC/Album 004 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 004 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 004 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 005
+DIR_ENTRY path=ms0:/MUSIC/Album 005 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 005 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 005 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 006
+DIR_ENTRY path=ms0:/MUSIC/Album 006 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 006 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 006 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 007
+DIR_ENTRY path=ms0:/MUSIC/Album 007 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 007 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 007 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 008
+DIR_ENTRY path=ms0:/MUSIC/Album 008 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 008 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 008 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 009
+DIR_ENTRY path=ms0:/MUSIC/Album 009 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 009 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 009 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 010
+DIR_ENTRY path=ms0:/MUSIC/Album 010 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 010 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 010 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 011
+DIR_ENTRY path=ms0:/MUSIC/Album 011 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 011 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 011 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 012
+DIR_ENTRY path=ms0:/MUSIC/Album 012 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 012 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 012 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 013
+DIR_ENTRY path=ms0:/MUSIC/Album 013 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 013 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 013 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 014
+DIR_ENTRY path=ms0:/MUSIC/Album 014 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 014 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 014 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 015
+DIR_ENTRY path=ms0:/MUSIC/Album 015 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 015 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 015 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 016
+DIR_ENTRY path=ms0:/MUSIC/Album 016 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 016 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 016 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 017
+DIR_ENTRY path=ms0:/MUSIC/Album 017 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 017 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 017 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 018
+DIR_ENTRY path=ms0:/MUSIC/Album 018 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 018 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 018 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 019
+DIR_ENTRY path=ms0:/MUSIC/Album 019 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 019 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 019 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 020
+DIR_ENTRY path=ms0:/MUSIC/Album 020 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 020 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 020 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 021
+DIR_ENTRY path=ms0:/MUSIC/Album 021 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 021 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 021 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 022
+DIR_ENTRY path=ms0:/MUSIC/Album 022 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 022 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 022 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 023
+DIR_ENTRY path=ms0:/MUSIC/Album 023 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 023 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 023 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 024
+DIR_ENTRY path=ms0:/MUSIC/Album 024 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 024 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 024 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 025
+DIR_ENTRY path=ms0:/MUSIC/Album 025 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 025 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 025 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 026
+DIR_ENTRY path=ms0:/MUSIC/Album 026 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 026 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 026 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 027
+DIR_ENTRY path=ms0:/MUSIC/Album 027 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 027 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 027 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 028
+DIR_ENTRY path=ms0:/MUSIC/Album 028 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 028 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 028 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 029
+DIR_ENTRY path=ms0:/MUSIC/Album 029 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 029 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 029 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 030
+DIR_ENTRY path=ms0:/MUSIC/Album 030 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 030 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 030 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 031
+DIR_ENTRY path=ms0:/MUSIC/Album 031 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 031 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 031 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 032
+DIR_ENTRY path=ms0:/MUSIC/Album 032 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 032 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 032 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 033
+DIR_ENTRY path=ms0:/MUSIC/Album 033 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 033 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 033 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 034
+DIR_ENTRY path=ms0:/MUSIC/Album 034 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 034 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 034 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 035
+DIR_ENTRY path=ms0:/MUSIC/Album 035 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 035 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 035 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 036
+DIR_ENTRY path=ms0:/MUSIC/Album 036 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 036 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 036 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 037
+DIR_ENTRY path=ms0:/MUSIC/Album 037 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 037 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 037 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 038
+DIR_ENTRY path=ms0:/MUSIC/Album 038 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 038 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 038 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 039
+DIR_ENTRY path=ms0:/MUSIC/Album 039 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 039 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 039 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 040
+DIR_ENTRY path=ms0:/MUSIC/Album 040 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 040 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 040 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 041
+DIR_ENTRY path=ms0:/MUSIC/Album 041 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 041 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 041 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 042
+DIR_ENTRY path=ms0:/MUSIC/Album 042 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 042 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 042 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 043
+DIR_ENTRY path=ms0:/MUSIC/Album 043 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 043 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 043 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 044
+DIR_ENTRY path=ms0:/MUSIC/Album 044 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 044 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 044 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 045
+DIR_ENTRY path=ms0:/MUSIC/Album 045 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 045 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 045 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 046
+DIR_ENTRY path=ms0:/MUSIC/Album 046 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 046 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 046 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 047
+DIR_ENTRY path=ms0:/MUSIC/Album 047 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 047 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 047 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 048
+DIR_ENTRY path=ms0:/MUSIC/Album 048 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 048 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 048 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 049
+DIR_ENTRY path=ms0:/MUSIC/Album 049 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 049 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 049 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 050
+DIR_ENTRY path=ms0:/MUSIC/Album 050 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 050 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 050 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 051
+DIR_ENTRY path=ms0:/MUSIC/Album 051 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 051 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 051 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 052
+DIR_ENTRY path=ms0:/MUSIC/Album 052 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 052 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 052 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 053
+DIR_ENTRY path=ms0:/MUSIC/Album 053 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 053 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 053 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 054
+DIR_ENTRY path=ms0:/MUSIC/Album 054 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 054 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 054 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 055
+DIR_ENTRY path=ms0:/MUSIC/Album 055 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 055 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 055 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 056
+DIR_ENTRY path=ms0:/MUSIC/Album 056 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 056 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 056 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 057
+DIR_ENTRY path=ms0:/MUSIC/Album 057 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 057 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 057 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 058
+DIR_ENTRY path=ms0:/MUSIC/Album 058 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 058 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 058 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 059
+DIR_ENTRY path=ms0:/MUSIC/Album 059 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 059 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 059 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 060
+DIR_ENTRY path=ms0:/MUSIC/Album 060 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 060 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 060 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 061
+DIR_ENTRY path=ms0:/MUSIC/Album 061 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 061 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 061 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 062
+DIR_ENTRY path=ms0:/MUSIC/Album 062 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 062 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 062 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 063
+DIR_ENTRY path=ms0:/MUSIC/Album 063 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 063 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 063 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 064
+DIR_ENTRY path=ms0:/MUSIC/Album 064 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 064 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 064 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 065
+DIR_ENTRY path=ms0:/MUSIC/Album 065 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 065 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 065 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 066
+DIR_ENTRY path=ms0:/MUSIC/Album 066 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 066 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 066 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 067
+DIR_ENTRY path=ms0:/MUSIC/Album 067 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 067 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 067 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 068
+DIR_ENTRY path=ms0:/MUSIC/Album 068 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 068 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 068 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 069
+DIR_ENTRY path=ms0:/MUSIC/Album 069 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 069 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 069 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 070
+DIR_ENTRY path=ms0:/MUSIC/Album 070 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 070 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 070 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Album 071
+DIR_ENTRY path=ms0:/MUSIC/Album 071 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Album 071 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Album 071 entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+FOLDERS count=72 tracks=72
+NOTICE 72 tracks; 0 skipped entries
+RESTORE_SELECTION index=0 path=ms0:/MUSIC/Album 000/01 Song.mp3
+AUDIO state=0 seconds=0 rate=0 bitrate=0 error=00000000 generation=0 duration=0 seeking=0
+ART_FILE decoded=1 bytes=4725 path=ms0:/MUSIC/Album 000/cover.jpg
+PLAY_REQUEST index=0 path=ms0:/MUSIC/Album 000/01 Song.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=1 duration=0 seeking=0
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+LIBRARY_OPEN
+LIBRARY_SELECT index=1
+ART_CACHE_STATS decoded=6 disk=0
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+OPEN_FOLDER index=1 track=1 preview=1
+ART_FILE decoded=1 bytes=4725 path=ms0:/MUSIC/Album 001/cover.jpg
+POSITION_SAVED seconds=1 playing=ms0:/MUSIC/Album 000/01 Song.mp3
+PLAY_REQUEST index=1 path=ms0:/MUSIC/Album 001/01 Song.mp3
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=2 duration=0 seeking=0
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=0
+SEEK delta=5 from=0 target=5
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+SEEK delta=5 from=5 target=10
+AUDIO state=2 seconds=10 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+SEEK delta=5 from=10 target=15
+AUDIO state=2 seconds=15 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+SEEK delta=5 from=15 target=20
+AUDIO state=2 seconds=20 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+SEEK delta=5 from=20 target=25
+AUDIO state=2 seconds=25 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=25 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=0
+SEEK delta=-5 from=25 target=20
+AUDIO state=2 seconds=20 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+SEEK delta=-5 from=20 target=15
+AUDIO state=2 seconds=15 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=1
+POSITION_SAVED seconds=15 playing=ms0:/MUSIC/Album 001/01 Song.mp3
+AUDIO state=2 seconds=15 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=0
+AUDIO state=3 seconds=15 rate=44100 bitrate=192 error=00000000 generation=2 duration=90 seeking=0
+LIBRARY_OPEN
+LIBRARY_SELECT index=0
+LIBRARY_SELECT index=1
+LIBRARY_SELECT index=2
+LIBRARY_SELECT index=3
+LIBRARY_SELECT index=4
+LIBRARY_SELECT index=5
+LIBRARY_SELECT index=6
+LIBRARY_SELECT index=7
+LIBRARY_SELECT index=8
+LIBRARY_SELECT index=9
+LIBRARY_SELECT index=10
+LIBRARY_SELECT index=11
+LIBRARY_SELECT index=12
+LIBRARY_SELECT index=13
+LIBRARY_SELECT index=14
+LIBRARY_SELECT index=15
+LIBRARY_SELECT index=16
+ART_CACHE_STATS decoded=16 disk=0
+LIBRARY_SELECT index=17
+LIBRARY_SELECT index=18
+LIBRARY_SELECT index=19
+LIBRARY_SELECT index=20
+LIBRARY_SELECT index=21
+LIBRARY_SELECT index=22
+LIBRARY_SELECT index=23
+LIBRARY_SELECT index=24
+LIBRARY_SELECT index=25
+LIBRARY_SELECT index=26
+ART_CACHE_STATS decoded=26 disk=0
+LIBRARY_SELECT index=27
+LIBRARY_SELECT index=28
+LIBRARY_SELECT index=29
+LIBRARY_SELECT index=30
+LIBRARY_SELECT index=31
+LIBRARY_SELECT index=32
+LIBRARY_SELECT index=33
+LIBRARY_SELECT index=34
+LIBRARY_SELECT index=35
+LIBRARY_SELECT index=36
+ART_CACHE_STATS decoded=36 disk=0
+LIBRARY_SELECT index=37
+LIBRARY_SELECT index=38
+LIBRARY_SELECT index=39
+LIBRARY_SELECT index=40
+LIBRARY_SELECT index=41
+LIBRARY_SELECT index=42
+LIBRARY_SELECT index=43
+LIBRARY_SELECT index=44
+LIBRARY_SELECT index=45
+LIBRARY_SELECT index=46
+ART_CACHE_STATS decoded=46 disk=0
+LIBRARY_SELECT index=47
+LIBRARY_SELECT index=48
+LIBRARY_SELECT index=49
+LIBRARY_SELECT index=50
+LIBRARY_SELECT index=51
+LIBRARY_SELECT index=52
+LIBRARY_SELECT index=53
+POSITION_SAVED seconds=15 playing=ms0:/MUSIC/Album 001/01 Song.mp3
+LIBRARY_SELECT index=54
+LIBRARY_SELECT index=55
+LIBRARY_SELECT index=56
+ART_CACHE_STATS decoded=56 disk=0
+LIBRARY_SELECT index=57
+LIBRARY_SELECT index=58
+LIBRARY_SELECT index=59
+LIBRARY_SELECT index=60
+LIBRARY_SELECT index=61
+LIBRARY_SELECT index=62
+LIBRARY_SELECT index=63
+LIBRARY_SELECT index=64
+LIBRARY_SELECT index=65
+LIBRARY_SELECT index=66
+ART_CACHE_STATS decoded=66 disk=0
+LIBRARY_SELECT index=67
+LIBRARY_SELECT index=68
+LIBRARY_SELECT index=69
+LIBRARY_SELECT index=70
+LIBRARY_SELECT index=71
+LIBRARY_SELECT index=0
+ART_CACHE_STATS decoded=72 disk=6
