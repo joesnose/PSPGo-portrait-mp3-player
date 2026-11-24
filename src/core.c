@@ -102,16 +102,16 @@ static void apic(Tags *t,const unsigned char *p,size_t n){
  t->art=malloc(n);if(t->art){memcpy(t->art,p,n);t->art_size=n;}
 }
 void tags_free(Tags *t){free(t->art);memset(t,0,sizeof(*t));}
-void tags_read(const char *path,Tags *t){
+int tags_read_interruptible(const char *path,Tags *t,int (*keep_going)(void)){
  memset(t,0,sizeof(*t));snprintf(t->title,sizeof(t->title),"%s",path_name(path));char *dot=strrchr(t->title,'.');if(dot)*dot=0;
- FILE *f=fopen(path,"rb");if(!f)return;unsigned char h[10];if(fread(h,1,10,f)!=10)goto done;
+ FILE *f=fopen(path,"rb");if(!f)return 1;unsigned char h[10];if(fread(h,1,10,f)!=10)goto done;
  if(!memcmp(h,"ID3",3)&&h[3]>=2&&h[3]<=4&&synchsafe(h+6)){
   unsigned ver=h[3];size_t size=sync32(h+6);if(size>(size_t)LONG_MAX-20)goto done;
   long total;fseek(f,0,SEEK_END);total=ftell(f);if(total<10||(unsigned long)total<size+10u)goto done;
   t->audio_start=(long)size+10+((ver==4&&(h[5]&16))?10:0);
   /* Unsupported unsynchronised/compressed tags still have a valid audio offset. */
   if(ver==2||size>8u*1024u*1024u||(h[5]&128))goto id1;
-  unsigned char *body=malloc(size?size:1);if(!body)goto id1;fseek(f,10,SEEK_SET);if(fread(body,1,size,f)!=size){free(body);goto id1;}
+  unsigned char *body=malloc(size?size:1);if(!body)goto id1;fseek(f,10,SEEK_SET);size_t read=0;while(read<size){if(keep_going&&!keep_going()){free(body);fclose(f);return 0;}size_t chunk=size-read;if(chunk>16384)chunk=16384;if(fread(body+read,1,chunk,f)!=chunk)break;read+=chunk;}if(read!=size){free(body);goto id1;}
   size_t pos=0;if(h[5]&64){if(size<4){free(body);goto id1;}uint32_t ext=ver==4?sync32(body):be32(body)+4u;if(ext<4||ext>size){free(body);goto id1;}pos=ext;}
   while(pos+10<=size&&body[pos]){
    const unsigned char *fh=body+pos;if(ver==4&&!synchsafe(fh+4))break;size_t n=ver==4?sync32(fh+4):be32(fh+4);pos+=10;if(n>size-pos)break;
@@ -129,5 +129,6 @@ id1:
   if(!t->artist[0]){memcpy(t->artist,v+33,30);t->artist[30]=0;}
   if(!t->album[0]){memcpy(t->album,v+63,30);t->album[30]=0;}
  }}
-done:fclose(f);
+done:fclose(f);return 1;
 }
+void tags_read(const char *path,Tags *t){(void)tags_read_interruptible(path,t,0);}

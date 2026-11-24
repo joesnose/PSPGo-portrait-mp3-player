@@ -1,0 +1,1 @@
+PASS: interrupted large ID3 read cleans up and the normal tag reader retains its result

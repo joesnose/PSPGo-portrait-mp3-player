@@ -1,12 +1,12 @@
-# Portrait Player — PSP Go v0.18
+# Portrait Player — PSP Go v0.19
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.18 retains Library browsing, system volume and the existing portrait controls. Thumbnail-size decoding, a 64-entry RAM cache and persistent disk thumbnails reduce repeated cover loading. Playback handover retains the newly requested artwork. Rewind displays and adjusts its logical target while internal decoding catches up, and finished streams are not fed again.
+Version 0.19 changes Library artwork scheduling and drawing. Thumbnails are expanded once at load time, new jobs wait until navigation has paused for about 140 ms, and the selected folder has priority. Large background reads can be interrupted by more navigation. Working seek and song-selection behaviour from v0.18 is retained.
 
-From v0.17, replace **`EBOOT.PBP` only** in `PSP/GAME/JoeMusic`; the helper is unchanged. Earlier versions need both `EBOOT.PBP` and `music_buttons.prx`. Keep `folders.cfg`, `position.txt`, `theme.cfg` and the generated `cover-cache-v1` directory. Do not register the helper in seplugins or PLUGINS.TXT.
+From v0.17 or v0.18, replace **`EBOOT.PBP` only** in `PSP/GAME/JoeMusic`; the helper is unchanged. Earlier versions need both `EBOOT.PBP` and `music_buttons.prx`. Keep `folders.cfg`, `position.txt`, `theme.cfg` and the generated `cover-cache-v1` directory. Do not register the helper in seplugins or PLUGINS.TXT.
 
 Versions before v0.17 need **both files replaced** for analogue system volume. Normal physical volume direction, themes, shuffle and the player layout are retained.
 
@@ -79,7 +79,7 @@ The line immediately below the artwork now shows the artist for the displayed pl
 
 ## Library and Shuffle all
 
-START shows one row per folder containing MP3s, with its full path to distinguish duplicate names and storage devices. Rows now have 44 × 44 album-art tiles and larger matching folder icons when no cover is available. Six larger rows fit on screen; the list scrolls normally. Thumbnails use embedded or folder artwork, decode to 44 × 44 pixels, and keep 64 RGB565 entries in RAM. Disk thumbnails in `cover-cache-v1` survive RAM eviction and app restarts. The worker prioritises recently visible rows. The full-size player image retains its own 224 × 224 buffer. Select a folder with portrait Up/Down and press HOME or Circle to open its MP3-only list and preview its artwork on the player. Nested folders are separate Library entries; the player list stays within the selected directory. Opening a folder does not start music; press HOME or Circle again to play your chosen song. Nested folders with tracks have their own entries. Selected music roots and recursive scanning are unchanged.
+START shows one row per folder containing MP3s, with its full path to distinguish duplicate names and storage devices. Rows now have 44 × 44 album-art tiles and larger matching folder icons when no cover is available. Six larger rows fit on screen; the list scrolls normally. Thumbnails use embedded or folder artwork, decode to 44 × 44 pixels, and keep 64 expanded entries in RAM, with compact RGB565 thumbnails on disk. Disk thumbnails in `cover-cache-v1` survive RAM eviction and app restarts. The worker prioritises recently visible rows. The full-size player image retains its own 224 × 224 buffer. Select a folder with portrait Up/Down and press HOME or Circle to open its MP3-only list and preview its artwork on the player. Nested folders are separate Library entries; the player list stays within the selected directory. Opening a folder does not start music; press HOME or Circle again to play your chosen song. Nested folders with tracks have their own entries. Selected music roots and recursive scanning are unchanged.
 
 **Physical Square on Library** starts a shuffled queue containing every track across all selected folders. Each track appears once before the queue wraps. Double-tap L/R and automatic next-track follow that queue; previous returns through the same order. Press Square again on Library to turn shuffle off without interrupting the current track. Refreshing the library also clears shuffle. Shuffle mode is not persisted across launches.
 
@@ -175,3 +175,11 @@ Library thumbnails now decode in a lower-priority worker with independent image 
 Sanitized host checks cover thumbnail pixel serialization, RGB565 colour conversion, source/track/theme invalidation and corrupt/truncated cache recovery. The focused PPSSPP check browses 72 albums, revisits the first page after RAM eviction, relaunches using disk thumbnails, samples the artwork during a new-song handover and checks held rewind targets and the displayed clock. Playback regressions cover CBR/VBR seeking, pause preservation, Library persistence and natural advancement; the stereo short-track test also checks decoded playback duration. See `validation/fixes-v0.18.json` and `validation/regression-v0.18.json`. Hardware confirmation remains necessary.
 
 Thumbnail files are small RGB565 images with version, source fingerprints and a checksum. Writes use a temporary file; invalid or incomplete entries are rebuilt. Rescan after changing cover files. Deleting `cover-cache-v1` rebuilds the cache without affecting music or settings. First-time decoding of large artwork can still take time, but subsequent loads use the saved thumbnail.
+
+## Version 0.19 artwork scheduling
+
+New thumbnail jobs wait until Library navigation has paused for about 140 ms. The focused folder is chosen first, followed by other visible rows; off-screen pending jobs wait. Cached RAM images remain visible while navigating, and new rows retain a placeholder until their thumbnail is ready. Large source covers still have a first-time decode cost.
+
+Thumbnail colours expand once in the loader instead of on every drawn frame. The worker runs at lower priority and uses interruptible 16 KiB reads for large ID3 tags and image files; JPEG scanline work also checks for resumed navigation. Disk thumbnail reads use one block read before validation, retaining the existing `cover-cache-v1` format. The player avoids loading hidden full-size art while Library is fully open. No cache reset or helper replacement is required for v0.17/v0.18 users.
+
+Sanitized tests cover interrupted tag reads, unchanged tag results and thumbnail serialization/recovery. The artwork emulator test uses 2.4 MB embedded JPEGs, checks navigation while work is paused, confirms selected artwork appears after release, and checks warm-cache reuse. Playback regressions cover the existing seek, selection, pause and track-ending behaviour. See `validation/art-v0.19.json` and `validation/regression-v0.19.json`. Real PSP Go confirmation remains necessary.

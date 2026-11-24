@@ -20,6 +20,7 @@ int library_scan(Library *lib,const Roots *roots);
 void library_free(Library *lib);
 int is_mp3(const char *name);
 void tags_read(const char *path,Tags *tags);
+int tags_read_interruptible(const char *path,Tags *tags,int (*keep_going)(void));
 void tags_free(Tags *tags);
 const char *path_name(const char *path);
 #endif

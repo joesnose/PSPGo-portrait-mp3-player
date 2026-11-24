@@ -1,0 +1,15 @@
+{
+  "version": "0.19",
+  "eboot_sha256": "8172b9534c1baa0c5025965d831fa9b340c145a8cb3808144a9a7423559f98fb",
+  "large_embedded_jpeg_bytes": 2441040,
+  "navigation_events_while_held": 16,
+  "art_jobs_completed_while_moving": 0,
+  "selected_art_after_release_seconds": 1.842,
+  "warm_boot_decodes_and_disk_hits": [
+    0,
+    6
+  ],
+  "playback_continues": true,
+  "hardware_test": false,
+  "player_and_helper_sources_unchanged_from_v0_18": true
+}

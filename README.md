@@ -8,9 +8,9 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.18](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.18/portrait-player-v0.18.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.18) · [Checksums](downloads/v0.18/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.18/portrait-player-v0.18-source.zip)
+**[Download v0.19](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.19/portrait-player-v0.19.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.19) · [Checksums](downloads/v0.19/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.19/portrait-player-v0.19-source.zip)
 
-Version **0.18** adds persistent thumbnail caching and thumbnail-size decoding, keeps the newly selected artwork visible during playback handover, and separates the requested seek position from the decoder's internal progress. Held rewind now adjusts the requested target consistently. EOF feeding is also bounded so a finished track cannot be fed again.
+Version **0.19** reduces Library artwork work per frame and pauses new cover jobs while navigating. The selected folder loads first after a brief pause. Background reads can stop when navigation resumes, and full-size player artwork is not refreshed behind the open Library. The v0.18 seek and song-selection behaviour is retained.
 
 Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
@@ -21,7 +21,7 @@ PSP/GAME/JoeMusic/music_buttons.prx
 
 The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper reads HOME, volume and slider state and adjusts the system volume through the firmware API. It has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. **From v0.17, replace `EBOOT.PBP` only; its helper is unchanged.** From v0.16 or earlier, replace both `EBOOT.PBP` and `music_buttons.prx` to get shared system volume.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. **From v0.17 or v0.18, replace `EBOOT.PBP` only; the helper is unchanged.** From v0.16 or earlier, replace both `EBOOT.PBP` and `music_buttons.prx` to get shared system volume.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -61,7 +61,7 @@ If the helper is missing or fails to load, **Circle remains the playback control
 
 Press **SELECT → Add a music folder**, choose a storage device, and browse to a music folder. Press **Cross** to include that folder and every subfolder. Add more locations if needed, then **Triangle** in Settings to rescan.
 
-Library shows folders containing MP3s, with cover tiles loaded by a background worker. Up to 64 thumbnails stay in RAM, and decoded thumbnails are saved in `cover-cache-v1` beside the EBOOT for later visits and launches. Only the first visit needs the source image decoded; placeholders appear while uncached art loads. Missing art retains the folder icon. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
+Library shows folders containing MP3s, with cover tiles loaded by a background worker. Up to 64 thumbnails stay in RAM, and decoded thumbnails are saved in `cover-cache-v1` beside the EBOOT for later visits and launches. New cover jobs pause while you navigate and resume about 140 ms after release, prioritising the selected folder. Already-loaded RAM thumbnails stay visible during scrolling; new rows show placeholders until their artwork is ready. Only the first visit needs the source image decoded. Missing art retains the folder icon. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
 
 Cached thumbnails are checked against their source image, track, folder and theme when loaded. Rescan after changing covers; deleting `cover-cache-v1` safely rebuilds thumbnails. Keep it for faster subsequent launches.
 
@@ -111,7 +111,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Previous validation results](validation/result.json) and the [v0.18 focused checks](validation/fixes-v0.18.json) and [playback regressions](validation/regression-v0.18.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Previous validation results](validation/result.json) and the [v0.19 artwork checks](validation/art-v0.19.json) and [playback regressions](validation/regression-v0.19.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 
