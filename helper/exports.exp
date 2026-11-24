@@ -9,5 +9,6 @@ PSP_EXPORT_FUNC_HASH(joeMusicReadControls)
 PSP_EXPORT_FUNC_HASH(joeMusicGetVolume)
 PSP_EXPORT_FUNC_HASH(joeMusicHomeActive)
 PSP_EXPORT_FUNC_HASH(joeMusicSlideState)
+PSP_EXPORT_FUNC_HASH(joeMusicAdjustVolume)
 PSP_EXPORT_END
 PSP_END_EXPORTS

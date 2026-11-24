@@ -1,0 +1,1 @@
+PASS: recursive/overlapping folders, symlink loop, config persistence, metadata/artwork bounds, malformed tags, hold timing/wrap

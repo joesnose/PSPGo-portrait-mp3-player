@@ -1,14 +1,14 @@
-# Portrait Player — PSP Go v0.16
+# Portrait Player — PSP Go v0.17
 
 A native MP3 player for ARK on 6.61. Hold the console **90 degrees clockwise** for the 272 × 480 portrait interface.
 
 ## Install or update
 
-Version 0.16 adds portrait-oriented analogue volume and five-second seeking, a playback progress bar, one-pass title/album scrolling and continuously looping selected-song text with a `.....` separator. Library and artist scrolling keep the previous behaviour. Short labels stay still.
+Version 0.17 keeps Library and its opened folders in browsing mode until you play a selection or return. It adds background thumbnail loading, shared analogue/system volume and revised decode-discard seeking, with Xing/Info and VBRI duration support. Existing portrait controls, scrolling and progress layout remain.
 
-Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It is now a read-only HOME/volume getter: no firmware patches, input hooks, volume setters or background threads.
+Replace **both `EBOOT.PBP` and `music_buttons.prx`** in your existing `PSP/GAME/JoeMusic` directory. Keep `folders.cfg` and `position.txt`. Do not register the helper in seplugins or PLUGINS.TXT. It reads HOME, volume and slider state, and changes the system volume through the standard firmware API. It has no firmware patches or input hooks.
 
-Existing v0.12–v0.14 users only need to replace the EBOOT; the same working slide-switch helper is used. The included helper remains free of patches, input hooks and volume setters. Normal volume direction, library, shuffle, shoulder double taps, JPEG discovery and player layout are retained.
+All previous versions need **both files replaced** for v0.17 analogue volume. Normal physical volume direction, themes, shuffle and the player layout are retained.
 
 If startup still fails, rename `music_buttons.prx` to `music_buttons.off`, or place an empty `SAFE_MODE.txt` beside the EBOOT. The player will skip helper loading, use normal HOME/volume handling and allow physical Circle for play/pause. No uploaded log is required to try this. Startup screens distinguish decoder, HOME-control and storage setup.
 
@@ -44,8 +44,8 @@ Button names refer to the original printed labels, with the PSP held clockwise.
 
 | Control | Action |
 |---|---|
-| L / R short press | Select previous / next song within the current folder, wrapping at the ends |
-| L / R double tap (within 350 ms) | Play previous / next song in the playback queue |
+| L / R short press | On the player, browse songs in the current folder. In Library, move between folders without playback |
+| L / R double tap (within 350 ms) | On the player, play previous / next queued song. In Library, move the folder highlight |
 | L / R hold for 0.8 seconds | Select the first song in the previous / next folder, wrapping at the ends |
 | HOME short press | Play the selected song; pause/resume if already active |
 | HOME hold for 0.8 seconds | Open the native PSP HOME / exit menu |
@@ -69,11 +69,11 @@ Volume changes show a temporary bar and measured level out of 30 when the helper
 
 Face-button actions have moved one position counterclockwise: physical Circle performs former Cross actions, Triangle performs former Circle actions, Cross performs former Square actions, and Square performs former Triangle actions. The D-pad directions above refer to the clockwise portrait orientation: physical Left/Right scroll songs; physical Down/Up scroll folders.
 
-Opening a Library folder, or using folder navigation on the player, enters folder preview: the top text and artwork now describe that folder and the highlighted track. Its artwork remains cached as you scroll MP3s. Playback continues independently until HOME or physical Circle commits the selection. Once playing, ordinary song browsing retains the playing track artwork until another folder is explicitly opened. Below the artwork, the browsed album name and five cyclic song rows show your selection independently. The centre song is highlighted in a larger 16-pixel font; it animates towards the centre when browsing. The bottom contains only the timer at left and a small play/pause symbol at right; transport buttons and HOME/START/SELECT hints have been removed. Small folders repeat songs around the drum. Root-level files directly inside MUSIC or PSP/MUSIC use original cassette/mixtape artwork. Albums without embedded or folder artwork use an original glass-style music-note icon; neither icon requires external assets or attribution.
+Opening a Library folder, or using folder navigation on the player, enters folder preview: the top text and artwork now describe that folder and the highlighted track. Its artwork remains cached as you scroll MP3s. Playback continues independently until HOME or physical Circle commits the selection. Once playing, ordinary song browsing retains the playing track artwork until another folder is explicitly opened. Below the artwork, the browsed album name and five cyclic song rows show your selection independently. The centre song is highlighted in a larger 16-pixel font; it animates towards the centre when browsing. The bottom contains the timer at left, a progress bar and a small play/pause symbol at right; transport buttons and HOME/START/SELECT hints have been removed. Small folders repeat songs around the drum. Root-level files directly inside MUSIC or PSP/MUSIC use original cassette/mixtape artwork. Albums without embedded or folder artwork use an original glass-style music-note icon; neither icon requires external assets or attribution.
 
 ## Four-second return and artist display
 
-When a track is playing or paused, scrolling the player starts a four-second idle timer. Each further scroll restarts it. Long highlighted names get one complete scrolling pass and an end pause before returning, even if that takes longer than four seconds. When the timer and this reading pause have finished, the display returns to the active song, artwork and list position without restarting audio. Opening a folder starts the same timer; Library and Settings are not forcibly dismissed by it. Selecting a song to play cancels the pending return. The active track is looked up when returning, so automatic next-track playback cannot send the display back to an old song.
+When a track is playing or paused, scrolling the player starts a four-second idle timer. Each further scroll restarts it. Long highlighted names get one complete scrolling pass and an end pause before returning, even if that takes longer than four seconds. When the timer and this reading pause have finished, the display returns to the active song, artwork and list position without restarting audio. Opening a folder from Library enters persistent browsing: neither the folder nor Library is dismissed by inactivity. Play a selection, close the slider or use START/Triangle to return. The timer applies only to browsing directly from the normal player. Selecting a song to play cancels the pending return. The active track is looked up when returning, so automatic next-track playback cannot send the display back to an old song.
 
 The line immediately below the artwork now shows the artist for the displayed playing track or folder-preview selection. Missing tags show `Unknown artist`.
 
@@ -154,12 +154,18 @@ Sanitized host checks cover marquee timing, bounds, state resets, hidden views a
 
 ## Analogue controls and progress
 
-Hold the PSP 90° clockwise. Moving the stick towards the top/bottom of the portrait screen raises/lowers player volume. These are physical left/right on the unrotated PSP. Volume repeats while held and has a central dead zone. Player volume is a separate 0–30 output level, initially full, within the system volume set by the physical keys.
+Hold the PSP 90° clockwise. Moving the stick towards the top/bottom of the portrait screen raises/lowers PSP system volume. These are physical left/right on the unrotated PSP. Volume repeats while held and has a central dead zone. It changes the same 0–30 firmware volume used by the physical buttons; no separate player gain remains. The updated helper is required.
 
-Portrait right/left (physical up/down) seeks forwards/backwards five seconds on the player screen, repeating while held. It seeks the playing song even if another song is highlighted. Paused playback remains paused. Firmware frame seeking is used where supported; a decode-discard fallback can make a distant rewind slower. Seeking is bounded at the start and estimated end.
+Portrait right/left (physical up/down) seeks forwards/backwards five seconds on the player screen, repeating while held. It seeks the playing song even if another song is highlighted. Paused playback remains paused. Seeking decodes/discards to the target, resetting to the stream start for a rewind. This avoids frame-reset streaming failures, but distant rewinds can take longer. Reaching EOF during a seek pauses there rather than starting another song. Seeking is bounded at the start and at the duration when trusted metadata is available.
 
-A progress bar sits between the elapsed timer and play/pause icon. Duration comes from decoder frame counts when available, otherwise a bitrate estimate, so some VBR totals can be approximate. The top title and album scroll to their ends once and stop; overflowing selected song names loop with five dots between repetitions, pausing at the start. A pending song still gets its first readable pass before the idle return.
+A progress bar sits between the elapsed timer and play/pause icon. Duration comes from Xing/Info or VBRI metadata where available, then decoder frame counts or bitrate estimates. Totals without metadata can be approximate. The top title and album scroll to their ends once and stop; overflowing selected song names loop with five dots between repetitions, pausing at the start. A pending song still gets its first readable pass before the idle return.
 
 ## Version 0.16 verification
 
 Sanitized marquee checks cover one-pass stopping and loop wraparound as well as the existing timing/reset cases. Focused PPSSPP checks exercise portrait analogue volume, forward/backward and paused seeking, duration on a generated 90-second file, title stopping and the progress-bar layout. See `validation/transport-v0.16.json`. Physical PSP testing remains necessary.
+
+## Version 0.17 verification
+
+Sanitized host tests cover shared volume/mute/limits and K1 restoration, MP3 duration headers and existing native directory/tag/scan cases. Focused PPSSPP checks cover 128/192-kbps CBR and VBR seeking at 44.1 kHz without track changes, pause preservation, persistent Library/folder browsing, cold artwork navigation, ordinary player idle return and genuine end-of-track advancement. See `validation/regression-v0.17.json`. System volume and physical slider behaviour still require confirmation on a PSP Go.
+
+Library thumbnails now decode in a lower-priority worker with independent image buffers. Cache locks protect only short copies, not file I/O or decompression. Cache invalidation cancels stale results, and the worker is joined before shutdown. A folder placeholder remains visible until art is ready.

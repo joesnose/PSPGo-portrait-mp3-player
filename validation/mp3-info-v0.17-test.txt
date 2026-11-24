@@ -1,0 +1,1 @@
+PASS: MPEG1/MPEG2 Xing/Info, VBRI, absent counts, truncation and malformed headers

@@ -1,0 +1,1 @@
+PASS: changing player.h rebuilds main.o and player.o before relinking (PSP make dry run)

@@ -8,9 +8,9 @@ Native PSP MP3 playback for **ARK on 6.61**, with album artwork, folder browsing
 
 ## Download and install
 
-**[Download v0.16](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.16/portrait-player-v0.16.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.16) · [Checksums](downloads/v0.16/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.16/portrait-player-v0.16-source.zip)
+**[Download v0.17](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.17/portrait-player-v0.17.zip)** · [Release notes](https://github.com/joesnose/PSPGo-portrait-mp3-player/releases/tag/v0.17) · [Checksums](downloads/v0.17/SHA256SUMS.txt) · [Source ZIP](https://github.com/joesnose/PSPGo-portrait-mp3-player/raw/refs/heads/main/downloads/v0.17/portrait-player-v0.17-source.zip)
 
-Version **0.16** adds portrait-oriented analogue volume and seeking, a playback progress bar, one-pass top title/album scrolling, and continuous selected-song scrolling with a `.....` separator and a pause at the start. Short labels stay still. Library scrolling is unchanged.
+Version **0.17** keeps Library folders open, uses shared PSP system volume for the portrait analogue control, replaces frame-reset seeking with decode-discard seeking, and loads Library thumbnails in a background worker. Long-name scrolling and the progress bar are retained. Xing/Info and VBRI metadata improve VBR duration reporting.
 
 Extract the ZIP into your existing `PSP/GAME/JoeMusic` folder on the Memory Stick. It appears in the Game menu as **Portrait Player**. The folder name is retained so existing settings continue to work. The application needs:
 
@@ -19,9 +19,9 @@ PSP/GAME/JoeMusic/EBOOT.PBP
 PSP/GAME/JoeMusic/music_buttons.prx
 ```
 
-The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper provides read-only HOME, volume and slider state; it has no firmware patches or input hooks.
+The app loads its helper itself. **Do not add `music_buttons.prx` to seplugins or PLUGINS.TXT.** The helper reads HOME, volume and slider state and adjusts the system volume through the firmware API. It has no firmware patches or input hooks.
 
-When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. Users upgrading from v0.12–v0.15.2 can replace just the EBOOT; the helper is unchanged.
+When upgrading, keep `folders.cfg`, `position.txt` and `theme.cfg`. **For v0.17, replace both `EBOOT.PBP` and `music_buttons.prx`.** The updated helper is required for analogue system-volume control.
 
 Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms0:` workaround for the PSP Go's storage redirection, but card access from internal launches still needs hardware confirmation.
 
@@ -33,9 +33,9 @@ Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms
 |---|---|
 | **HOME — short press** | Play the selected song; pause/resume if it is already active. In Library, open the highlighted folder first. |
 | **HOME — hold 0.8 seconds** | Open the native PSP HOME / exit menu. |
-| **L / R — single tap** | Browse previous / next song within the current folder. Acts on release and does not start playback. |
-| **L / R — double tap** | Play previous / next song. Follows the shuffled queue when shuffle is enabled. Tap within 350 ms. |
-| **L / R — hold 0.8 seconds** | Browse the previous / next album folder, once per hold. |
+| **L / R — single tap** | Browse previous / next song within the current folder. In Library, move between folders. Acts on release and does not start playback. |
+| **L / R — double tap** | On the player, play previous / next song. Follows the shuffled queue when shuffle is enabled. Tap within 350 ms. In Library, shoulder presses move the folder highlight without playback. |
+| **L / R — hold 0.8 seconds** | Browse the previous / next album folder, once per hold. In Library, move the folder highlight. |
 | **D-pad Left / Right** | Portrait up / down: scroll songs on the player, or items in Library and menus. |
 | **D-pad Down / Up** | Portrait left / right: browse previous / next album on the player. |
 | **Circle** | Open the highlighted folder/item, play the selected MP3, or play/pause on the player. On the Theme row, cycle colours. |
@@ -47,13 +47,13 @@ Memory Stick launch is the confirmed setup. Internal-storage launch has a `fatms
 | **Square — in the folder browser** | Finish browsing and return to Settings. |
 | **START** | Open Library from the player; otherwise return to the playing song. |
 | **SELECT** | Open Settings: music folders and themes. |
-| **Analogue — portrait up / down** | Raise / lower player volume. Physical left / right on the unrotated PSP; hold to repeat. |
+| **Analogue — portrait up / down** | Raise / lower the same PSP system volume as the physical buttons. Physical left / right on the unrotated PSP; hold to repeat. |
 | **Analogue — portrait right / left** | Seek forwards / backwards five seconds in the active song, on the player screen. Physical up / down on the unrotated PSP; hold to repeat. Works while paused. |
 | **Volume + / −** | Normal system volume adjustment, with an on-screen bar. No song-skipping action. |
 | **Open the sliding screen** | Bring Library in from the right of the portrait screen. |
 | **Close the sliding screen** | Slide Library out to the right and return to the currently playing track. |
 
-Song browsing returns to the playing track after **four seconds without scrolling**. If the highlighted name is too long to fit, it gets one full scrolling pass and an end pause before returning. Each scroll restarts that timer; choosing a song to play cancels it. The timer does not dismiss Library or Settings. Music continues while browsing and moving the slider.
+Browsing songs directly on the player returns to the playing track after **four seconds without scrolling**; long highlighted names get a full readable pass first. **Library and folders opened from Library stay open** while you browse, until you play a selection, close the sliding screen or explicitly return with START/Triangle. Opening a folder alone does not start playback or arm the idle return. Music continues while browsing.
 
 If the helper is missing or fails to load, **Circle remains the playback control**, and HOME retains its normal firmware behaviour.
 
@@ -61,7 +61,7 @@ If the helper is missing or fails to load, **Circle remains the playback control
 
 Press **SELECT → Add a music folder**, choose a storage device, and browse to a music folder. Press **Cross** to include that folder and every subfolder. Add more locations if needed, then **Triangle** in Settings to rescan.
 
-Library shows folders containing MP3s, with larger cover tiles and matching folder icons where art is missing. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
+Library shows folders containing MP3s, with cover tiles loaded by a background worker. Folder placeholders appear while uncached art loads, keeping navigation responsive. Missing art retains the folder icon. Opening a folder previews its artwork and MP3 list in the player; HOME or Circle plays the highlighted track. Nested folders have separate Library entries. The directory browser shows folders and MP3s only.
 
 Embedded JPEG/PNG art is preferred. Folder images can use names such as `cover.jpg`, `folder.jpg` or `front.jpeg`; other JPEG/PNG filenames are also discovered. Both RGB and CMYK JPEGs are supported. The artist appears below the full-size artwork; missing tags show `Unknown artist`.
 
@@ -79,7 +79,7 @@ The selected song/folder saves when browsing settles, periodically during playba
 
 Playback time and active-track metadata are recorded separately, but **resuming audio at that timestamp is not enabled**. Audio does not start automatically. Volume reversal is not enabled. Suspend/resume and internal-launch card access are not guaranteed.
 
-Playback is MP3-only; there is no EQ or streaming. The bottom progress bar follows the playing track, between its elapsed timer and play/pause icon. Duration uses the decoder frame count when available, otherwise a bitrate estimate; some VBR files can have an approximate total. Analogue volume controls player output (0–30), in addition to the PSP system volume; physical volume buttons retain their usual behaviour. Player volume starts at full output on launch. Seeking uses the firmware frame-seek API with decode-discard fallback, which can take longer when rewinding far into a track. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
+Playback is MP3-only; there is no EQ or streaming. The bottom progress bar follows the playing track, between its elapsed timer and play/pause icon. Duration uses Xing/Info or VBRI metadata where present, then decoder counts or a bitrate estimate; files without duration metadata can still have an approximate total. Analogue and physical volume keys now share the PSP system volume. Seeking decodes and discards to the target and preserves paused/playing state; distant rewinds can take longer. Reaching EOF while seeking pauses there instead of selecting another track. Embedded artwork is limited to 4 MiB and PNG dimensions to 1,024 × 1,024. Firmware decoder limitations still apply. See the [full user guide](docs/USER_GUIDE.md) for scanning limits and diagnostic details.
 
 ## Build from source
 
@@ -109,7 +109,7 @@ cc -std=gnu11 -Isrc src/pcm.c src/slide_panel.c tests/pcm_panel_test.c -lm -o /t
 /tmp/joe-pcm
 ```
 
-[Previous validation results](validation/result.json) and the [v0.16 player checks](validation/transport-v0.16.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
+[Previous validation results](validation/result.json) and the [v0.17 player checks](validation/regression-v0.17.json) distinguish emulator/host checks from hardware tests. Emulator scripts in `tests/` are development harnesses with environment-specific paths; older versioned scripts are retained as history. Their audio/art fixtures are synthetic and are not included in the release.
 
 For troubleshooting, `JOE_MUSIC_LOG.txt` is written beside the EBOOT and replaced each launch. Creating `SAFE_MODE.txt` there bypasses helper loading for diagnosis.
 

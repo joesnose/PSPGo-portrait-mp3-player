@@ -5,6 +5,7 @@
 typedef struct MusicDir MusicDir;
 typedef struct {char name[PATH_CAP];int directory,regular,link;} MusicEntry;
 MusicDir *music_dir_open(const char *path);
+MusicDir *music_dir_open_quiet(const char *path);
 int music_dir_read(MusicDir *dir,MusicEntry *entry);
 void music_dir_close(MusicDir *dir);
 int music_path_compare(const char *a,const char *b);

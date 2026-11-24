@@ -28,6 +28,7 @@ void music_icon(int x,int y,uint32_t color);
 void transport(int playing);
 void playback_icon(int x,int y,int playing);
 void cover_thumbnails_clear(void);
+void cover_shutdown(void);
 void folder_thumbnail(int x,int y,const char *folder,const char *representative);
 void cover_log(FILE *log);
 void cover_load(const unsigned char *data,size_t size,const char *track);

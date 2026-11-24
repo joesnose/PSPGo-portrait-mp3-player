@@ -1,0 +1,289 @@
+BUILD=0.17 memory_request=normal audio_backend=standard44100 folder_preview=1 portrait=clockwise logical=272x480 base=ms0:/PSP/GAME/JoeMusic
+AUDIO init=00000000
+NOTICE Helper absent: Circle plays; normal HOME
+DIR_OPEN error=80010002 path=ef0:/MUSIC
+STANDARD_LOCATION path=ef0:/MUSIC available=0
+DIR_BEGIN path=ms0:/MUSIC
+STANDARD_LOCATION path=ms0:/MUSIC available=1
+DIR_OPEN error=80010002 path=ef0:/PSP/MUSIC
+STANDARD_LOCATION path=ef0:/PSP/MUSIC available=0
+DIR_OPEN error=80010002 path=ms0:/PSP/MUSIC
+STANDARD_LOCATION path=ms0:/PSP/MUSIC available=0
+SCAN_ROOT index=0 path=ms0:/MUSIC
+DIR_BEGIN path=ms0:/MUSIC
+DIR_ENTRY path=ms0:/MUSIC name=An exceptionally long album folder name that needs horizontal scrolling mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Short Album mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Y Natural End mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 00 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 01 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 02 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 03 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 04 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 05 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 06 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 07 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 08 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 09 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 10 mode=000011c9 attr=00000010 kind=directory
+DIR_ENTRY path=ms0:/MUSIC name=Z Album 11 mode=000011c9 attr=00000010 kind=directory
+DIR_SUMMARY path=ms0:/MUSIC entries=15 folders=15 mp3=0 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=01 - A Very Long Selected Song Name That Extends Far Beyond The Player Width.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=02 Short.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=03 Variable.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=04 Other Bitrate.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling entries=5 folders=0 mp3=4 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Short Album
+DIR_ENTRY path=ms0:/MUSIC/Short Album name=01 Other.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Short Album name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Short Album entries=2 folders=0 mp3=1 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Y Natural End
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=01 End.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=02 Next.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Y Natural End entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 00
+DIR_ENTRY path=ms0:/MUSIC/Z Album 00 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 00 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 00 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 00 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 01
+DIR_ENTRY path=ms0:/MUSIC/Z Album 01 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 01 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 01 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 01 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 02
+DIR_ENTRY path=ms0:/MUSIC/Z Album 02 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 02 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 02 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 02 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 03
+DIR_ENTRY path=ms0:/MUSIC/Z Album 03 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 03 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 03 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 03 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 04
+DIR_ENTRY path=ms0:/MUSIC/Z Album 04 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 04 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 04 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 04 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 05
+DIR_ENTRY path=ms0:/MUSIC/Z Album 05 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 05 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 05 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 05 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 06
+DIR_ENTRY path=ms0:/MUSIC/Z Album 06 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 06 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 06 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 06 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 07
+DIR_ENTRY path=ms0:/MUSIC/Z Album 07 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 07 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 07 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 07 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 08
+DIR_ENTRY path=ms0:/MUSIC/Z Album 08 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 08 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 08 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 08 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 09
+DIR_ENTRY path=ms0:/MUSIC/Z Album 09 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 09 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 09 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 09 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 10
+DIR_ENTRY path=ms0:/MUSIC/Z Album 10 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 10 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 10 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 10 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+DIR_BEGIN path=ms0:/MUSIC/Z Album 11
+DIR_ENTRY path=ms0:/MUSIC/Z Album 11 name=01 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 11 name=02 Song.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Z Album 11 name=COVER.JPG mode=000021c9 attr=00000020 kind=file
+DIR_SUMMARY path=ms0:/MUSIC/Z Album 11 entries=3 folders=0 mp3=2 other_audio=0 other=1 read=00000000
+FOLDERS count=15 tracks=31
+NOTICE 31 tracks; 0 skipped entries
+RESTORE_SELECTION index=1 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=0 seconds=0 rate=0 bitrate=0 error=00000000 generation=0 duration=0 seeking=0
+ART_FILE decoded=1 bytes=13624 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/cover.jpg
+PLAY_REQUEST index=1 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/02 Short.mp3
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+ART_FILE decoded=1 bytes=13624 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/cover.jpg
+SEEK delta=5 from=0
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+SEEK delta=-5 from=5
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+SEEK delta=5 from=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=3 seconds=1 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=3 seconds=2 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=3 seconds=3 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=3 seconds=4 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=1
+AUDIO state=3 seconds=5 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+SELECT kind=track index=2 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/03 Variable.mp3
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=1 duration=90 seeking=0
+PLAY_REQUEST index=2 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/03 Variable.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=2 duration=0 seeking=0
+ART_FILE decoded=1 bytes=13624 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/cover.jpg
+AUDIO state=2 seconds=0 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+POSITION_SAVED seconds=0 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/03 Variable.mp3
+SEEK delta=5 from=0
+AUDIO state=2 seconds=0 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=1 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=2 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=3 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=4 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=2 seconds=5 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+SEEK delta=-5 from=5
+AUDIO state=2 seconds=0 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+SEEK delta=5 from=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=3 seconds=1 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=3 seconds=2 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=3 seconds=3 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=3 seconds=4 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=1
+AUDIO state=3 seconds=5 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+AUDIO state=2 seconds=5 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+SELECT kind=track index=3 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/04 Other Bitrate.mp3
+AUDIO state=2 seconds=6 rate=44100 bitrate=64 error=00000000 generation=2 duration=90 seeking=0
+PLAY_REQUEST index=3 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/04 Other Bitrate.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=3 duration=0 seeking=0
+ART_FILE decoded=1 bytes=13624 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/cover.jpg
+AUDIO state=2 seconds=0 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+POSITION_SAVED seconds=0 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/04 Other Bitrate.mp3
+SEEK delta=5 from=0
+AUDIO state=2 seconds=0 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=1 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=2 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=3 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=4 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=5 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=2 seconds=5 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+SEEK delta=-5 from=5
+AUDIO state=2 seconds=0 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+SEEK delta=5 from=0
+AUDIO state=3 seconds=0 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=3 seconds=1 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=3 seconds=2 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=3 seconds=3 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=3 seconds=4 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=1
+AUDIO state=3 seconds=5 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=5 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=6 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+LIBRARY_OPEN
+AUDIO state=2 seconds=7 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=8 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=9 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=10 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+POSITION_SAVED seconds=10 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/04 Other Bitrate.mp3
+AUDIO state=2 seconds=11 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=12 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+LIBRARY_SELECT index=2
+LIBRARY_SELECT index=3
+LIBRARY_SELECT index=4
+AUDIO state=2 seconds=13 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+LIBRARY_SELECT index=5
+LIBRARY_SELECT index=6
+LIBRARY_SELECT index=7
+LIBRARY_SELECT index=8
+LIBRARY_SELECT index=9
+AUDIO state=2 seconds=14 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=15 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+OPEN_FOLDER index=9 track=19 preview=1
+ART_FILE decoded=1 bytes=2440780 path=ms0:/MUSIC/Z Album 06/cover.jpg
+AUDIO state=2 seconds=16 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+POSITION_SAVED seconds=16 playing=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/04 Other Bitrate.mp3
+AUDIO state=2 seconds=17 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=18 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=19 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=20 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+AUDIO state=2 seconds=21 rate=44100 bitrate=128 error=00000000 generation=3 duration=90 seeking=0
+PLAY_REQUEST index=19 path=ms0:/MUSIC/Z Album 06/01 Song.mp3
+ART_FILE decoded=1 bytes=13624 path=ms0:/MUSIC/An exceptionally long album folder name that needs horizontal scrolling/cover.jpg
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+ART_FILE decoded=1 bytes=2440780 path=ms0:/MUSIC/Z Album 06/cover.jpg
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+SELECT kind=track index=20 path=ms0:/MUSIC/Z Album 06/02 Song.mp3
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+POSITION_SAVED seconds=3 playing=ms0:/MUSIC/Z Album 06/01 Song.mp3
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+SCROLL_IDLE_RETURN seconds=4
+RETURN_PLAYER selected=19 preview=0 path=ms0:/MUSIC/Z Album 06/01 Song.mp3
+LIBRARY_OPEN
+LIBRARY_SELECT index=8
+AUDIO state=2 seconds=7 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+POSITION_SAVED seconds=7 playing=ms0:/MUSIC/Z Album 06/01 Song.mp3
+LIBRARY_SELECT index=7
+LIBRARY_SELECT index=6
+AUDIO state=2 seconds=8 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+LIBRARY_SELECT index=5
+LIBRARY_SELECT index=4
+LIBRARY_SELECT index=3
+AUDIO state=2 seconds=9 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+LIBRARY_SELECT index=2
+OPEN_FOLDER index=2 track=5 preview=1
+DIR_BEGIN path=ms0:/MUSIC/Y Natural End
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=01 End.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=02 Next.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Y Natural End entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/Y Natural End/01 End.mp3
+AUDIO state=2 seconds=10 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+POSITION_SAVED seconds=10 playing=ms0:/MUSIC/Z Album 06/01 Song.mp3
+AUDIO state=2 seconds=11 rate=44100 bitrate=192 error=00000000 generation=4 duration=90 seeking=0
+PLAY_REQUEST index=5 path=ms0:/MUSIC/Y Natural End/01 End.mp3
+ART_FILE decoded=1 bytes=2440780 path=ms0:/MUSIC/Z Album 06/cover.jpg
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+DIR_BEGIN path=ms0:/MUSIC/Y Natural End
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=01 End.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=02 Next.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Y Natural End entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/Y Natural End/01 End.mp3
+AUDIO state=2 seconds=1 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=2 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+LIBRARY_OPEN
+AUDIO state=2 seconds=3 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=4 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=5 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=6 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=7 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=8 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+POSITION_SAVED seconds=8 playing=ms0:/MUSIC/Y Natural End/01 End.mp3
+AUDIO state=2 seconds=9 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=10 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=11 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=12 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=13 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=14 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=15 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=16 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=17 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=18 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+POSITION_SAVED seconds=18 playing=ms0:/MUSIC/Y Natural End/01 End.mp3
+AUDIO state=2 seconds=19 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=20 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=21 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=22 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=23 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=2 seconds=24 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+AUDIO state=4 seconds=24 rate=44100 bitrate=192 error=00000000 generation=5 duration=12 seeking=0
+PLAY_REQUEST index=6 path=ms0:/MUSIC/Y Natural End/02 Next.mp3
+AUDIO state=1 seconds=0 rate=0 bitrate=0 error=00000000 generation=6 duration=0 seeking=0
+DIR_BEGIN path=ms0:/MUSIC/Y Natural End
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=01 End.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_ENTRY path=ms0:/MUSIC/Y Natural End name=02 Next.mp3 mode=000021c9 attr=00000020 kind=mp3
+DIR_SUMMARY path=ms0:/MUSIC/Y Natural End entries=2 folders=0 mp3=2 other_audio=0 other=0 read=00000000
+ART_MISSING track=ms0:/MUSIC/Y Natural End/02 Next.mp3
+AUDIO state=2 seconds=0 rate=44100 bitrate=192 error=00000000 generation=6 duration=90 seeking=0
