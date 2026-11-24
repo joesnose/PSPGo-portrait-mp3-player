@@ -1,0 +1,1 @@
+PASS: PSP native Dread: attribute-only, hidden, readonly, archive directories, nested and root-level MP3s; no lstat dependency; one native directory handle at a time

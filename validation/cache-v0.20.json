@@ -1,0 +1,26 @@
+{
+  "version": "0.20",
+  "eboot_sha256": "37d95deddd472962ba1d296206202edd06221d68ed36826b064da4d96930de54",
+  "all_80_covers_retained": true,
+  "first_page_return_has_no_disk_reads_or_decodes": true,
+  "close_and_reopen_library_has_no_reload": true,
+  "cold_details": [
+    79,
+    0,
+    80,
+    309760,
+    80,
+    0
+  ],
+  "warm_details": [
+    0,
+    8,
+    9,
+    34848,
+    1,
+    0
+  ],
+  "hardware_test": false,
+  "helper_sha256": "9d704a04bdd5a94c802b70fd244fdad7a5ba9c24af4bcf5d77f5151b4be8693e",
+  "player_and_helper_sources_unchanged_from_v0_19": true
+}

@@ -1,0 +1,1 @@
+PASS: 100 retained covers without reload, 1200-album bounded memory, concurrent rescan, queued write failure/retry, decoded-cover reuse and warm reuse

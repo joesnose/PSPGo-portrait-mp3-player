@@ -1,0 +1,1 @@
+PASS: directory-stat absence or legacy-directory-stamp changes do not invalidate unchanged art; actual image fingerprint remains required

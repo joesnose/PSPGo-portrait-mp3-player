@@ -1,0 +1,16 @@
+{
+  "version": "0.20",
+  "eboot_sha256": "37d95deddd472962ba1d296206202edd06221d68ed36826b064da4d96930de54",
+  "seek_cbr_128_192_and_vbr_44100": true,
+  "playing_seek_keeps_same_song": true,
+  "paused_seek_keeps_pause": true,
+  "library_root_and_folder_remain_open": true,
+  "shoulders_keep_library_open": true,
+  "cold_large_art_navigation": true,
+  "ordinary_player_idle_return": true,
+  "natural_end_still_advances_without_closing_library": true,
+  "system_volume": "sanitized kernel-API mock; real PSP test required",
+  "hardware_test": false,
+  "helper_sha256": "9d704a04bdd5a94c802b70fd244fdad7a5ba9c24af4bcf5d77f5151b4be8693e",
+  "player_and_helper_sources_unchanged_from_v0_19": true
+}

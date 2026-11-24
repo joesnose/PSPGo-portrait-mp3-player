@@ -1,3 +1,6 @@
+#ifdef GFX_CACHE_HOST_TEST
+#include "cache_platform.h"
+#else
 /* SPDX-License-Identifier: BSD-2-Clause */
 #include <pspkernel.h>
 #include <pspdisplay.h>
@@ -19,6 +22,7 @@
 extern unsigned char msx[];
 static uint32_t *fb,*panel_pixels,*panel_base;static int buffer;
 static void cover_worker_init(void);
+static void cover_seed(const char *track,const char *source,const uint32_t *pixels);
 static volatile unsigned thumb_visible,thumb_frame;static volatile uint32_t thumb_moved;
 static int thumbnail_continue(void){if(!thumb_visible||(uint32_t)(sceKernelGetSystemTimeLow()-thumb_moved)<140000u)return 0;sceKernelDelayThread(100);return 1;}
 static FILE *art_log;
@@ -154,7 +158,7 @@ return 0;
 }
 void cover_load(const unsigned char *data,size_t size,const char *track){
  mixtape=0;if(track){char parent[PATH_CAP];snprintf(parent,sizeof(parent),"%s",track);char *end=strrchr(parent,'/');if(end)*end=0;mixtape=!strcasecmp(parent,"fatms0:/MUSIC")||!strcasecmp(parent,"fatms0:/PSP/MUSIC")||!strcasecmp(parent,"ms0:/MUSIC")||!strcasecmp(parent,"ef0:/MUSIC")||!strcasecmp(parent,"ms0:/PSP/MUSIC")||!strcasecmp(parent,"ef0:/PSP/MUSIC");}
- has_art=find_cover(data,size,track,art,PANEL,1,224,0);
+ char source[PATH_CAP]="";has_art=find_cover(data,size,track,art,PANEL,1,224,source);if(has_art)cover_seed(track,source,art);
 }
 void cover_draw(int x,int y){
  if(has_art){for(int j=0;j<224;j++)for(int i=0;i<224;i++){int dx=i<10?9-i:i>=214?i-214:0,dy=j<10?9-j:j>=214?j-214:0;if(dx*dx+dy*dy<=100)pixel(x+i,y+j,art[j*224+i]);}return;}
@@ -163,61 +167,85 @@ void cover_draw(int x,int y){
  else {rounded(x+55,y+40,114,132,27,music_theme?SECONDARY:0xff8d9c7c);rounded(x+58,y+43,108,125,24,music_theme?blend(ACCENT,PANEL,100):0xff4f6650);rounded(x+63,y+47,98,55,20,music_theme?blend(INK,ACCENT,90):0xffa2bba0);rect(x+115,y+67,9,67,(music_theme?INK:0xffedfff0));rect(x+121,y+67,27,9,(music_theme?INK:0xffedfff0));rounded(x+94,y+119,30,20,9,(music_theme?INK:0xffedfff0));label(x+70,y+185,"No album art",MUTED,10);}
 }
 
-/* Cache state is held only while copying small jobs/pixels, never during I/O. */
-#define THUMB_SIZE THUMB_EDGE
-#define THUMB_COUNT 64
-typedef struct {char folder[PATH_CAP],track[PATH_CAP];uint32_t pixels[THUMB_PIXELS],background;unsigned used,ticket,seen;int valid,available,state,focused;} AlbumThumb;
-static AlbumThumb thumb_cache[THUMB_COUNT];static unsigned thumb_clock,thumb_ticket;
-static char thumb_directory[PATH_CAP];static unsigned thumb_decoded,thumb_disk_hits;
+#endif
+
+/* One descriptor per album; compact pixels are retained to a bounded budget. */
+#define THUMB_BUDGET (4u*1024u*1024u)
+#define THUMB_TILE_BYTES (THUMB_PIXELS*sizeof(uint16_t))
+#define HOT_COUNT 12
+typedef struct {char *folder,*track,*source;uint16_t *pixels;uint32_t background;unsigned used,ticket,seen;int available,state,focused,dirty;} AlbumThumb;
+typedef struct {uint32_t pixels[THUMB_PIXELS];unsigned album,ticket,used;int valid;} HotThumb;
+static AlbumThumb *thumb_cache;static unsigned thumb_count,thumb_clock,thumb_ticket,thumb_bytes,thumb_retained,thumb_focus;
+static HotThumb hot_thumbs[HOT_COUNT];static unsigned hot_clock;
+static char thumb_directory[PATH_CAP];static unsigned thumb_decoded,thumb_disk_hits,thumb_saved,thumb_errors;
+static uint32_t save_retry,load_retry;
 static SceUID thumb_mutex=-1,thumb_wake=-1,thumb_thread=-1;static int thumb_quit;
 static void thumb_lock(void){sceKernelWaitSema(thumb_mutex,1,0);}static void thumb_unlock(void){sceKernelSignalSema(thumb_mutex,1);}
+static char *thumb_string(const char *s){size_t n=strlen(s)+1;char *p=malloc(n);if(p)memcpy(p,s,n);return p;}
+static int due(uint32_t now,uint32_t retry){return !retry||(int32_t)(now-retry)>=0;}
+static void free_pixels(AlbumThumb *t){if(t->pixels){free(t->pixels);t->pixels=0;thumb_bytes-=THUMB_TILE_BYTES;thumb_retained--;}t->available=0;}
+static uint16_t *reserve_pixels(unsigned slot){
+ while(thumb_bytes+THUMB_TILE_BYTES>THUMB_BUDGET){unsigned oldest=thumb_count;for(unsigned i=0;i<thumb_count;i++)if(i!=slot&&thumb_cache[i].pixels&&!thumb_cache[i].dirty&&(unsigned)(thumb_frame-thumb_cache[i].seen)>1u&&(oldest==thumb_count||thumb_cache[i].used<thumb_cache[oldest].used))oldest=i;if(oldest==thumb_count)return 0;free_pixels(&thumb_cache[oldest]);thumb_cache[oldest].state=1;}
+ uint16_t *pixels=malloc(THUMB_TILE_BYTES);if(pixels){thumb_bytes+=THUMB_TILE_BYTES;thumb_retained++;}return pixels;
+}
+static void cover_seed(const char *track,const char *source,const uint32_t *pixels){
+ if(thumb_mutex<0||!track||!source||!source[0])return;thumb_lock();
+ for(unsigned album=0;album<thumb_count;album++){AlbumThumb *t=&thumb_cache[album];if(t->track&&!music_path_compare(t->track,track)){
+  if(!t->available){uint16_t *compact=reserve_pixels(album);if(compact){for(unsigned y=0;y<THUMB_EDGE;y++)for(unsigned x=0;x<THUMB_EDGE;x++)compact[y*THUMB_EDGE+x]=thumb_pack(pixels[(y*224/THUMB_EDGE)*224+x*224/THUMB_EDGE]);t->pixels=compact;t->available=1;t->state=3;t->background=PANEL;t->ticket=++thumb_ticket;if(thumb_directory[0]){free(t->source);t->source=thumb_string(source);t->dirty=t->source!=0;}}}break;
+ }}thumb_unlock();
+}
 static int cover_worker(SceSize size,void *arg){
  (void)size;(void)arg;
  for(;;){
-  char folder[PATH_CAP],track[PATH_CAP];int slot=-1;unsigned ticket=0;uint32_t background=0;
-  thumb_lock();int quit=thumb_quit;
-  int ready=thumb_visible&&(uint32_t)(sceKernelGetSystemTimeLow()-thumb_moved)>=140000u;
-  if(!quit&&ready)for(int i=0;i<THUMB_COUNT;i++)if(thumb_cache[i].valid&&thumb_cache[i].state==1&&(unsigned)(thumb_frame-thumb_cache[i].seen)<=1u&&(slot<0||thumb_cache[i].focused>thumb_cache[slot].focused||(thumb_cache[i].focused==thumb_cache[slot].focused&&thumb_cache[i].used>thumb_cache[slot].used)))slot=i;
-  if(slot>=0){AlbumThumb *t=&thumb_cache[slot];t->state=2;ticket=t->ticket;background=t->background;strcpy(folder,t->folder);strcpy(track,t->track);}
-  thumb_unlock();if(quit)break;if(slot<0){SceUInt timeout=20000;sceKernelWaitSema(thumb_wake,1,&timeout);continue;}
-  if(!track[0]){MusicDir *d=music_dir_open_quiet(folder);if(d){MusicEntry e;while(music_dir_read(d,&e)>0)if(!e.directory&&!e.link&&is_mp3(e.name)&&path_join(track,folder,e.name))break;music_dir_close(d);}}
-  uint16_t pixels[THUMB_PIXELS];char source[PATH_CAP]="";int cached=thumb_store_load(thumb_directory,folder,track,background,pixels),available=cached;
-  if(!cached){Tags metadata={0};if(track[0]){if(!tags_read_interruptible(track,&metadata,thumbnail_continue)){tags_free(&metadata);thumb_lock();if(thumb_cache[slot].ticket==ticket)thumb_cache[slot].state=1;thumb_unlock();continue;}}else path_join(track,folder,".cover-preview.mp3");
-   available=find_cover(metadata.art,metadata.art_size,track,thumb_work,background,0,THUMB_EDGE,source);tags_free(&metadata);
-   if(available)for(unsigned i=0;i<THUMB_PIXELS;i++)pixels[i]=thumb_pack(thumb_work[i]);
-  }
-  if(!thumbnail_continue()){thumb_lock();if(thumb_cache[slot].ticket==ticket)thumb_cache[slot].state=1;thumb_unlock();continue;}
-  thumb_lock();if(cached)thumb_disk_hits++;else thumb_decoded++;AlbumThumb *t=&thumb_cache[slot];if(t->valid&&t->ticket==ticket){t->available=available;if(available)for(unsigned i=0;i<THUMB_PIXELS;i++)t->pixels[i]=thumb_unpack(pixels[i]);t->state=3;}thumb_unlock();
-  if(available&&!cached&&thumbnail_continue())thumb_store_save(thumb_directory,folder,track,source,background,pixels);
-
+  char folder[PATH_CAP],track[PATH_CAP],source[PATH_CAP]="";uint16_t pixels[THUMB_PIXELS];unsigned slot,ticket=0;uint32_t background=0;int saving=0;
+  thumb_lock();int quit=thumb_quit;slot=thumb_count;uint32_t now=sceKernelGetSystemTimeLow();int quiet=(uint32_t)(now-thumb_moved)>=140000u;
+  if(!quit&&quiet&&thumb_visible&&due(now,load_retry))for(unsigned i=0;i<thumb_count;i++)if(thumb_cache[i].state==1&&(unsigned)(thumb_frame-thumb_cache[i].seen)<=1u&&(slot==thumb_count||thumb_cache[i].focused>thumb_cache[slot].focused||(thumb_cache[i].focused==thumb_cache[slot].focused&&thumb_cache[i].used>thumb_cache[slot].used)))slot=i;
+  if(!quit&&quiet&&slot==thumb_count&&thumb_directory[0]&&due(now,save_retry))for(unsigned i=0;i<thumb_count;i++)if(thumb_cache[i].dirty&&thumb_cache[i].pixels&&thumb_cache[i].source){slot=i;saving=1;break;}
+  /* Prepare a small neighbourhood after visible work and pending saves. */
+  if(!quit&&quiet&&thumb_visible&&slot==thumb_count&&due(now,load_retry))for(unsigned distance=1;distance<=8&&slot==thumb_count;distance++){unsigned after=thumb_focus+distance;if(after<thumb_count&&thumb_cache[after].state==1)slot=after;if(slot==thumb_count&&distance<=thumb_focus&&thumb_cache[thumb_focus-distance].state==1)slot=thumb_focus-distance;}
+  int has_job=slot<thumb_count;
+  if(has_job){AlbumThumb *t=&thumb_cache[slot];ticket=t->ticket;background=t->background;snprintf(folder,sizeof(folder),"%s",t->folder);snprintf(track,sizeof(track),"%s",t->track);if(saving){snprintf(source,sizeof(source),"%s",t->source);memcpy(pixels,t->pixels,sizeof(pixels));}else t->state=2;}
+  thumb_unlock();if(quit)break;if(!has_job){SceUInt timeout=20000;sceKernelWaitSema(thumb_wake,1,&timeout);continue;}
+  if(saving){int ok=thumb_store_save(thumb_directory,folder,track,source,background,pixels);thumb_lock();if(ok){thumb_saved++;save_retry=0;if(slot<thumb_count&&thumb_cache[slot].ticket==ticket){thumb_cache[slot].dirty=0;free(thumb_cache[slot].source);thumb_cache[slot].source=0;}}else{thumb_errors++;save_retry=sceKernelGetSystemTimeLow()+5000000u;}thumb_unlock();continue;}
+  int cached=thumb_store_load(thumb_directory,folder,track,background,pixels),available=cached;
+  if(!cached){Tags metadata={0};if(!tags_read_interruptible(track,&metadata,thumbnail_continue)){tags_free(&metadata);thumb_lock();if(slot<thumb_count&&thumb_cache[slot].ticket==ticket)thumb_cache[slot].state=1;thumb_unlock();continue;}
+   available=find_cover(metadata.art,metadata.art_size,track,thumb_work,background,0,THUMB_EDGE,source);tags_free(&metadata);if(available)for(unsigned i=0;i<THUMB_PIXELS;i++)pixels[i]=thumb_pack(thumb_work[i]);}
+  if(!thumbnail_continue()){thumb_lock();if(slot<thumb_count&&thumb_cache[slot].ticket==ticket)thumb_cache[slot].state=1;thumb_unlock();continue;}
+  thumb_lock();if(cached)thumb_disk_hits++;else thumb_decoded++;
+  if(slot<thumb_count&&thumb_cache[slot].ticket==ticket){AlbumThumb *t=&thumb_cache[slot];if(available){uint16_t *memory=reserve_pixels(slot);if(memory){memcpy(memory,pixels,sizeof(pixels));t->pixels=memory;t->available=1;t->state=3;if(!cached&&thumb_directory[0]&&source[0]){t->source=thumb_string(source);t->dirty=t->source!=0;}}else{t->state=1;load_retry=sceKernelGetSystemTimeLow()+1000000u;}}else t->state=3;}
+  thumb_unlock();
  }
  return 0;
 }
 static void cover_worker_init(void){
- thumb_mutex=sceKernelCreateSema("art_cache",0,1,1,0);thumb_wake=sceKernelCreateSema("art_jobs",0,0,1,0);
- if(thumb_mutex<0||thumb_wake<0)return;
- thumb_thread=sceKernelCreateThread("album_art",cover_worker,0x38,64*1024,PSP_THREAD_ATTR_USER,0);
- if(thumb_thread>=0&&sceKernelStartThread(thumb_thread,0,0)<0){sceKernelDeleteThread(thumb_thread);thumb_thread=-1;}
+ thumb_mutex=sceKernelCreateSema("art_cache",0,1,1,0);thumb_wake=sceKernelCreateSema("art_jobs",0,0,1,0);if(thumb_mutex<0||thumb_wake<0)return;
+ thumb_thread=sceKernelCreateThread("album_art",cover_worker,0x38,64*1024,PSP_THREAD_ATTR_USER,0);if(thumb_thread>=0&&sceKernelStartThread(thumb_thread,0,0)<0){sceKernelDeleteThread(thumb_thread);thumb_thread=-1;}
 }
 void cover_cache_setup(const char *base){
- struct stat st;if(!path_join(thumb_directory,base,"cover-cache-v1")||(mkdir(thumb_directory,0777)&&errno!=EEXIST)||stat(thumb_directory,&st)||!S_ISDIR(st.st_mode))thumb_directory[0]=0;
- if(art_log){fprintf(art_log,"ART_CACHE enabled=%d path=%s\n",!!thumb_directory[0],thumb_directory);fflush(art_log);}
+ int made=-1;if(path_join(thumb_directory,base,"cover-cache-v1")){made=mkdir(thumb_directory,0777);MusicDir *directory=music_dir_open_quiet(thumb_directory);if(directory)music_dir_close(directory);else thumb_directory[0]=0;}else thumb_directory[0]=0;
+ if(art_log){fprintf(art_log,"ART_CACHE enabled=%d mkdir=%d path=%s\n",!!thumb_directory[0],made,thumb_directory);fflush(art_log);}
 }
 void cover_library_activity(int visible,int moving,uint32_t now){thumb_visible=!!visible;if(moving)thumb_moved=now;thumb_frame++;}
 void cover_cache_stats(unsigned *decoded,unsigned *disk){if(thumb_mutex>=0)thumb_lock();*decoded=thumb_decoded;*disk=thumb_disk_hits;if(thumb_mutex>=0)thumb_unlock();}
-void cover_shutdown(void){
- if(thumb_thread>=0){thumb_lock();thumb_quit=1;thumb_unlock();sceKernelSignalSema(thumb_wake,1);sceKernelWaitThreadEnd(thumb_thread,0);sceKernelDeleteThread(thumb_thread);thumb_thread=-1;}
- if(thumb_wake>=0){sceKernelDeleteSema(thumb_wake);thumb_wake=-1;}if(thumb_mutex>=0){sceKernelDeleteSema(thumb_mutex);thumb_mutex=-1;}
+void cover_cache_details(unsigned *retained,unsigned *bytes,unsigned *saved,unsigned *errors){if(thumb_mutex>=0)thumb_lock();*retained=thumb_retained;*bytes=thumb_bytes;*saved=thumb_saved;*errors=thumb_errors;if(thumb_mutex>=0)thumb_unlock();}
+static void clear_entries(void){for(unsigned i=0;i<thumb_count;i++){free(thumb_cache[i].folder);free(thumb_cache[i].track);free(thumb_cache[i].source);free(thumb_cache[i].pixels);}free(thumb_cache);thumb_cache=0;thumb_count=thumb_bytes=thumb_retained=0;memset(hot_thumbs,0,sizeof(hot_thumbs));}
+void cover_thumbnails_prepare(char *const *paths,const int *indices,unsigned count){
+ AlbumThumb *entries=count?calloc(count,sizeof(*entries)):0;if(count&&!entries)count=0;
+ for(unsigned i=0;i<count;i++){char folder[PATH_CAP];snprintf(folder,sizeof(folder),"%s",paths[indices[i]]);char *slash=strrchr(folder,'/');if(slash)*slash=0;entries[i].folder=thumb_string(folder);entries[i].track=thumb_string(paths[indices[i]]);entries[i].state=entries[i].folder&&entries[i].track?1:3;entries[i].background=PANEL;}
+ if(thumb_mutex>=0)thumb_lock();clear_entries();thumb_cache=entries;thumb_count=count;thumb_focus=0;thumb_clock=0;load_retry=0;for(unsigned i=0;i<count;i++)entries[i].ticket=++thumb_ticket;if(thumb_mutex>=0)thumb_unlock();
 }
-void cover_thumbnails_clear(void){if(thumb_mutex>=0)thumb_lock();memset(thumb_cache,0,sizeof(thumb_cache));thumb_clock=0;if(thumb_mutex>=0)thumb_unlock();}
-void folder_thumbnail(int x,int y,const char *folder,const char *representative,int focused){
- uint32_t pixels[THUMB_PIXELS];int available=0;
- if(thumb_thread>=0){
-  thumb_lock();int found=-1,oldest=0;
-  for(int i=0;i<THUMB_COUNT;i++){if(thumb_cache[i].valid&&!music_path_compare(thumb_cache[i].folder,folder)){found=i;break;}if(!thumb_cache[i].valid)oldest=i;else if(thumb_cache[oldest].valid&&thumb_cache[i].used<thumb_cache[oldest].used)oldest=i;}
-  if(found<0){found=oldest;AlbumThumb *t=&thumb_cache[found];memset(t,0,sizeof(*t));snprintf(t->folder,sizeof(t->folder),"%s",folder);if(representative)snprintf(t->track,sizeof(t->track),"%s",representative);t->valid=1;t->state=1;t->background=PANEL;t->ticket=++thumb_ticket;sceKernelSignalSema(thumb_wake,1);}
-  AlbumThumb *t=&thumb_cache[found];t->used=++thumb_clock;t->seen=thumb_frame;t->focused=focused;available=t->available;if(available)memcpy(pixels,t->pixels,sizeof(pixels));thumb_unlock();
- }
- if(available){for(int j=0;j<THUMB_SIZE;j++)for(int i=0;i<THUMB_SIZE;i++){int dx=i<4?3-i:i>=THUMB_SIZE-4?i-(THUMB_SIZE-4):0,dy=j<4?3-j:j>=THUMB_SIZE-4?j-(THUMB_SIZE-4):0;if(dx*dx+dy*dy<=16)pixel(x+i,y+j,pixels[j*THUMB_SIZE+i]);}}
- else {rounded(x,y,THUMB_SIZE,THUMB_SIZE,5,PANEL);rounded(x+2,y+13,40,27,4,MUTED);rounded(x+3,y+7,17,12,3,MUTED);rect(x+5,y+17,34,2,ACCENT);}
+void cover_thumbnails_clear(void){if(thumb_mutex>=0)thumb_lock();for(unsigned i=0;i<thumb_count;i++){AlbumThumb *t=&thumb_cache[i];free_pixels(t);free(t->source);t->source=0;t->dirty=0;t->background=PANEL;t->ticket=++thumb_ticket;t->state=t->folder&&t->track?1:3;}memset(hot_thumbs,0,sizeof(hot_thumbs));load_retry=0;if(thumb_mutex>=0)thumb_unlock();}
+void cover_shutdown(void){
+ thumb_visible=0;if(thumb_thread>=0){thumb_lock();thumb_quit=1;thumb_unlock();sceKernelSignalSema(thumb_wake,1);sceKernelWaitThreadEnd(thumb_thread,0);sceKernelDeleteThread(thumb_thread);thumb_thread=-1;}
+ uint32_t flush_started=sceKernelGetSystemTimeLow();
+ for(unsigned i=0;i<thumb_count&&(uint32_t)(sceKernelGetSystemTimeLow()-flush_started)<1500000u;i++){AlbumThumb *t=&thumb_cache[i];if(t->dirty&&t->source&&t->pixels&&thumb_directory[0]){if(thumb_store_save(thumb_directory,t->folder,t->track,t->source,t->background,t->pixels))thumb_saved++;else thumb_errors++;}}
+ clear_entries();if(thumb_wake>=0){sceKernelDeleteSema(thumb_wake);thumb_wake=-1;}if(thumb_mutex>=0){sceKernelDeleteSema(thumb_mutex);thumb_mutex=-1;}
+}
+void folder_thumbnail(int x,int y,unsigned album,int focused){
+ HotThumb *hot=0;if(thumb_thread>=0){thumb_lock();if(album<thumb_count){AlbumThumb *t=&thumb_cache[album];t->used=++thumb_clock;t->seen=thumb_frame;t->focused=focused;if(focused)thumb_focus=album;
+  unsigned oldest=0;for(unsigned i=0;i<HOT_COUNT;i++){if(hot_thumbs[i].valid&&hot_thumbs[i].album==album&&hot_thumbs[i].ticket==t->ticket){hot=&hot_thumbs[i];break;}if(!hot_thumbs[i].valid)oldest=i;else if(hot_thumbs[oldest].valid&&hot_thumbs[i].used<hot_thumbs[oldest].used)oldest=i;}
+  if(!hot&&t->available&&t->pixels){hot=&hot_thumbs[oldest];hot->valid=1;hot->album=album;hot->ticket=t->ticket;for(unsigned i=0;i<THUMB_PIXELS;i++)hot->pixels[i]=thumb_unpack(t->pixels[i]);}if(hot)hot->used=++hot_clock;
+ }thumb_unlock();}
+ if(hot){for(int j=0;j<THUMB_EDGE;j++)for(int i=0;i<THUMB_EDGE;i++){int dx=i<4?3-i:i>=THUMB_EDGE-4?i-(THUMB_EDGE-4):0,dy=j<4?3-j:j>=THUMB_EDGE-4?j-(THUMB_EDGE-4):0;if(dx*dx+dy*dy<=16)pixel(x+i,y+j,hot->pixels[j*THUMB_EDGE+i]);}}
+ else{rounded(x,y,THUMB_EDGE,THUMB_EDGE,5,PANEL);rounded(x+2,y+13,40,27,4,MUTED);rounded(x+3,y+7,17,12,3,MUTED);rect(x+5,y+17,34,2,ACCENT);}
 }
